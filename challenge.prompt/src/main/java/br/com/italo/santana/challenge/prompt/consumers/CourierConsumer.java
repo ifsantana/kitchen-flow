@@ -1,6 +1,7 @@
 package br.com.italo.santana.challenge.prompt.consumers;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
+import br.com.italo.santana.challenge.prompt.enums.EventType;
 import br.com.italo.santana.challenge.prompt.util.PrintUtil;
 import br.com.italo.santana.challenge.prompt.util.RandomUtil;
 import org.slf4j.Logger;
@@ -33,12 +34,10 @@ public class CourierConsumer implements Runnable {
     @Override
     public void run() {
         try {
-            while(true){
-                prickUpOrderFromRegularShelf(frozenShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-                prickUpOrderFromRegularShelf(hotShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-                prickUpOrderFromRegularShelf(coldShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-                prickUpOrderFromROverflowShelf(overflowShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-            }
+            prickUpOrderFromRegularShelf(frozenShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
+            prickUpOrderFromRegularShelf(hotShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
+            prickUpOrderFromRegularShelf(coldShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
+            prickUpOrderFromROverflowShelf(overflowShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -51,14 +50,14 @@ public class CourierConsumer implements Runnable {
      */
     private void prickUpOrderFromRegularShelf(Order order) throws InterruptedException {
         if (Objects.nonNull(order)) {
-            PrintUtil.PrintShelvesContent(LOG, "COURIER_HAS_BEEN_NOTIFIED", order,
+            PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
                     hotShelf, coldShelf, frozenShelf, overflowShelf);
             waitForACourier();
             if(order.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER)) {
-                PrintUtil.PrintShelvesContent(LOG, "COURIER_HAS_PICKEDUP_ORDER", order,
+                PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
             } else {
-                PrintUtil.PrintShelvesContent(LOG, "ORDER_HAS_DISCARDED", order,
+                PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
             }
         }
@@ -71,14 +70,17 @@ public class CourierConsumer implements Runnable {
      */
     private void prickUpOrderFromROverflowShelf(Order order) throws InterruptedException {
         if (Objects.nonNull(order)) {
-            PrintUtil.PrintShelvesContent(LOG, "COURIER_HAS_BEEN_NOTIFIED", order,
+            PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
                     hotShelf, coldShelf, frozenShelf, overflowShelf);
+
             waitForACourier();
+
             if(order.isValidValidForDelivery(OVERFLOW_SHELF_DECAY_MODIFIER)) {
-                PrintUtil.PrintShelvesContent(LOG, "COURIER_HAS_PICKEDUP_ORDER", order,
+
+                PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
             } else {
-                PrintUtil.PrintShelvesContent(LOG, "ORDER_HAS_DISCARDED", order,
+                PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_WAS_DISCARDED.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
             }
         }

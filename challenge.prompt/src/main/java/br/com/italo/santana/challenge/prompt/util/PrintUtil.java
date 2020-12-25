@@ -9,14 +9,13 @@ public class PrintUtil {
     public static void PrintShelvesContent(Logger logger, String eventDescription,Object order, BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
 
-        String teste = "{ event_description: " + eventDescription +
+        String event = "{ event_description: " + eventDescription +
                 ", current_order:" + order.toString() +
                 ", hotShelf: " + hotShelf +
                 ", coldShelf: " + coldShelf +
                 ", frozenShelf: "+ frozenShelf +
                 ", overflowShelf: "+ overflowShelf + " }";
 
-        logger.info("{}",
-               JsonParserUtil.prettyJson(teste));
+        logger.info("{}", JsonParserUtil.prettyJson(event));
     }
 }

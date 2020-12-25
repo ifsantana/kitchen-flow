@@ -6,8 +6,8 @@ import br.com.italo.santana.challenge.prompt.factories.NamedForkJoinWorkerThread
 import br.com.italo.santana.challenge.prompt.interfaces.kitchens.KitchenService;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderRepository;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderService;
-import br.com.italo.santana.challenge.prompt.interfaces.shelves.ShelfService;
 import br.com.italo.santana.challenge.prompt.service.kitchen.KitchenServiceImpl;
+import br.com.italo.santana.challenge.prompt.util.ThreadPoolUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class OrderServiceImpl implements OrderService {
     private AppProperties appProperties;
     private OrderRepository ordersRepository;
     private KitchenService kitchenService;
-    private ForkJoinPool customThreadPool;
+    private ForkJoinPool parallelLoopCustomThreadPool;
+    private ExecutorService kitchenCustomThreadPool;
     private final String THREAD_POOL_NAME = "KitchenPool";
-
 
     @Autowired
     public OrderServiceImpl(AppProperties appProperties, OrderRepository ordersRepository,
@@ -36,8 +36,9 @@ public class OrderServiceImpl implements OrderService {
         this.appProperties = appProperties;
         this.ordersRepository = ordersRepository;
         this.kitchenService = kitchenService;
-        this.customThreadPool = new ForkJoinPool(this.appProperties.getParallelism(),
+        this.parallelLoopCustomThreadPool = new ForkJoinPool(this.appProperties.getParallelism(),
                 new NamedForkJoinWorkerThreadFactory(THREAD_POOL_NAME,true), null, false);
+        this.kitchenCustomThreadPool = Executors.newFixedThreadPool(this.appProperties.getParallelism());
     }
 
     public List<Order> getAllOrders() throws IOException {
@@ -45,15 +46,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     public void processOrders() throws IOException, ExecutionException, InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(this.appProperties.getParallelism());
 
         List<Order> orders = this.getAllOrders();
 
         try {
-            this.customThreadPool.submit(() ->
+            this.parallelLoopCustomThreadPool.submit(() ->
                     orders.parallelStream().forEach(order ->  {
                                 try {
-                                    executorService.execute(() -> {
+                                    this.kitchenCustomThreadPool.execute(() -> {
                                         try {
                                             this.kitchenService.cook(order);
                                         } catch (InterruptedException e) {
@@ -64,14 +64,13 @@ public class OrderServiceImpl implements OrderService {
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 } finally {
-                                    customThreadPool.shutdown();
+                                    parallelLoopCustomThreadPool.shutdown();
                                 }
                             }
                     )).get();
         } finally {
-            this.customThreadPool.shutdownNow();
-            executorService.awaitTermination(0, TimeUnit.SECONDS);
-            executorService.shutdownNow();
+            ThreadPoolUtil.shutdownAndAwaitTermination(this.kitchenCustomThreadPool);
+            this.parallelLoopCustomThreadPool.shutdownNow();
         }
     }
 }

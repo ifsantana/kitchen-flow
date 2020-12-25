@@ -1,6 +1,7 @@
 package br.com.italo.santana.challenge.prompt.producers;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
+import br.com.italo.santana.challenge.prompt.enums.EventType;
 import br.com.italo.santana.challenge.prompt.util.PrintUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ public class Producer  {
     private BlockingQueue<Order> overflowShelf;
 
     public Producer(BlockingQueue<Order> coldShelf, BlockingQueue<Order> hotShelf,
-                   BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
+                    BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
         this.coldShelf = coldShelf;
         this.hotShelf = hotShelf;
         this.frozenShelf = frozenShelf;
@@ -30,10 +31,15 @@ public class Producer  {
      * @return
      */
     public boolean putOrderOnColdShelve(Order order) {
-        PrintUtil.PrintShelvesContent(LOG,"ORDER_HAS_INSERTED", order,
-                hotShelf, coldShelf, frozenShelf, overflowShelf);
-        //LOG.info("Order: " + order.getId() + " inserted in ColdShelve! name: " + order.getName() + " temp: " + order.getTemp() + " selfLife: " + order.getShelfLife() + " [HOTSHELF] " + hotShelf + " [COLDSHELF] " + coldShelf + " [FROZENSHELF] "+ frozenShelf + " [OVERFLOWSHELF] "+ overflowShelf);
-        return coldShelf.offer(order);
+
+        boolean wasTheOrderInserted = coldShelf.offer(order);
+
+        if(wasTheOrderInserted) {
+            PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_ALLOCATED_ON_THE_COLD_SHELF.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+        }
+
+        return wasTheOrderInserted;
     }
 
     /**
@@ -42,10 +48,15 @@ public class Producer  {
      * @return
      */
     public boolean putOrderOnHotShelve(Order order) {
-        PrintUtil.PrintShelvesContent(LOG, "ORDER_HAS_INSERTED", order,
-                hotShelf, coldShelf, frozenShelf, overflowShelf);
-        //LOG.info("Order: " + order.getId() + " inserted in HotShelve! name: " + order.getName() + " temp: " + order.getTemp() + " selfLife: " + order.getShelfLife() + " [HOTSHELF] " + hotShelf + " [COLDSHELF] " + coldShelf + " [FROZENSHELF] "+ frozenShelf + " [OVERFLOWSHELF] "+ overflowShelf);
-        return hotShelf.offer(order);
+
+        boolean wasTheOrderInserted = hotShelf.offer(order);
+
+        if(wasTheOrderInserted) {
+            PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_ALLOCATED_ON_THE_HOT_SHELF.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+        }
+
+        return wasTheOrderInserted;
     }
 
     /**
@@ -54,10 +65,15 @@ public class Producer  {
      * @return
      */
     public boolean putOrderOnFrozenShelve(Order order) {
-        PrintUtil.PrintShelvesContent(LOG, "ORDER_HAS_INSERTED", order,
-                hotShelf, coldShelf, frozenShelf, overflowShelf);
-        //LOG.info("Order: " + order.getId() + " inserted in FrozenShelve! name: " + order.getName() + " temp: " + order.getTemp() + " selfLife: " + order.getShelfLife() + " [HOTSHELF] " + hotShelf + " [COLDSHELF] " + coldShelf + " [FROZENSHELF] "+ frozenShelf + " [OVERFLOWSHELF] "+ overflowShelf);
-        return frozenShelf.offer(order);
+
+        boolean wasTheOrderInserted = frozenShelf.offer(order);
+
+        if(wasTheOrderInserted) {
+            PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_ALLOCATED_ON_THE_FROZEN_SHELF.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+        }
+
+        return wasTheOrderInserted;
     }
 
     /***
@@ -66,9 +82,14 @@ public class Producer  {
      * @return
      */
     public boolean putOrderOnOverflowShelve(Order order) {
-        PrintUtil.PrintShelvesContent(LOG, "ORDER_HAS_INSERTED", order,
-                hotShelf, coldShelf, frozenShelf, overflowShelf);
-        //LOG.info("Order: " + order.getId() + " inserted in OverflowShelve! name: " + order.getName() + " temp: " + order.getTemp() + " selfLife: " + order.getShelfLife() + " [HOTSHELF] " + hotShelf + " [COLDSHELF] " + coldShelf + " [FROZENSHELF] "+ frozenShelf + " [OVERFLOWSHELF] "+ overflowShelf);
-        return overflowShelf.offer(order);
+
+        boolean wasTheOrderInserted = overflowShelf.offer(order);
+
+        if(wasTheOrderInserted) {
+            PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_ALLOCATED_ON_THE_OVERFLOW_SHELF.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+        }
+
+        return wasTheOrderInserted;
     }
 }

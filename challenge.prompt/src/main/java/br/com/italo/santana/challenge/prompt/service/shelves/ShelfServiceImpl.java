@@ -45,8 +45,6 @@ public class ShelfServiceImpl implements ShelfService {
                 }
             }
         }
-        PrintUtil.PrintShelvesContent(LOG,"ORDER_HAS_ALLOCATED_IN_SHELF", order,
-                hotShelf, coldShelf, frozenShelf, overflowShelf);
     }
 
     public boolean tryToAllocateInRegularShelf(Order order) {
