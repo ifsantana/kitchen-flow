@@ -7,12 +7,9 @@ import br.com.italo.santana.challenge.prompt.interfaces.kitchens.KitchenService;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderRepository;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderService;
 import br.com.italo.santana.challenge.prompt.service.kitchen.KitchenServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -21,8 +18,6 @@ import java.util.concurrent.*;
  */
 @Service
 public class OrderServiceImpl implements OrderService {
-
-    private final static Logger LOG = LoggerFactory.getLogger(OrderServiceImpl.class);
     private AppProperties appProperties;
     private OrderRepository ordersRepository;
     private KitchenService kitchenService;

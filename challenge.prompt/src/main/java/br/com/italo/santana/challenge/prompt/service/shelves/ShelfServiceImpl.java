@@ -4,9 +4,6 @@ import br.com.italo.santana.challenge.prompt.config.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 import br.com.italo.santana.challenge.prompt.interfaces.shelves.ShelfService;
-import br.com.italo.santana.challenge.prompt.util.PrintUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.BlockingQueue;
@@ -17,7 +14,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Service
 public class ShelfServiceImpl implements ShelfService {
-    private static final Logger LOG = LoggerFactory.getLogger(ShelfService.class.getSimpleName());
+
     private BlockingQueue<Order> coldShelf;
     private BlockingQueue<Order> hotShelf;
     private BlockingQueue<Order> frozenShelf;

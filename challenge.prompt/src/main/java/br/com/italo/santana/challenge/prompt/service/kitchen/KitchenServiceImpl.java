@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class KitchenServiceImpl implements KitchenService {
 
-    private static Logger LOG = LoggerFactory.getLogger(KitchenService.class.getSimpleName());
+    private final static Logger LOG = LoggerFactory.getLogger(KitchenService.class.getSimpleName());
     private ShelfService shelvesService;
     private CourierService courierService;
 

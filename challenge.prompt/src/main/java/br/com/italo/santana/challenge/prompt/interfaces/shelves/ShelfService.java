@@ -34,23 +34,23 @@ public interface ShelfService {
      * Returns the coldShelf current state
      * @return
      */
-    BlockingQueue getColdShelf();
+    BlockingQueue<Order> getColdShelf();
 
     /**
      * Returns the hotShelf current state
      * @return
      */
-    BlockingQueue getHotShelf();
+    BlockingQueue<Order> getHotShelf();
 
     /**
      * Returns the frozenShelf current state
      * @return
      */
-    BlockingQueue getFrozenShelf();
+    BlockingQueue<Order> getFrozenShelf();
 
     /**
      * Returns the overflowShelf current state
      * @return
      */
-    BlockingQueue getOverflowShelf();
+    BlockingQueue<Order> getOverflowShelf();
 }

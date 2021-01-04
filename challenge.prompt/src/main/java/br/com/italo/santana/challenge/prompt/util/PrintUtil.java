@@ -6,7 +6,8 @@ import java.util.concurrent.BlockingQueue;
 
 public class PrintUtil {
 
-    public static void PrintShelvesContent(Logger logger, String eventDescription,Object order, BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
+    public static void PrintShelvesContent(Logger logger, String eventDescription,Object order,
+                                           BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
 
         StringBuilder event = new StringBuilder("{ event_description: ")

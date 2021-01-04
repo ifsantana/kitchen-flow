@@ -13,8 +13,7 @@ public interface CourierService {
      * @param hotShelve
      * @param frozenShelve
      * @param overflowShelve
-     * @throws InterruptedException
      */
     void sendCourier(BlockingQueue<Order> coldShelve, BlockingQueue<Order> hotShelve,
-                     BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve) throws InterruptedException;
+                     BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve);
 }
