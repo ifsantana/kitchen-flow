@@ -34,10 +34,10 @@ public class CourierConsumer implements Runnable {
     @Override
     public void run() {
         try {
-            prickUpOrderFromRegularShelf(frozenShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-            prickUpOrderFromRegularShelf(hotShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-            prickUpOrderFromRegularShelf(coldShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
-            prickUpOrderFromROverflowShelf(overflowShelf.poll(RandomUtil.getRandomNumberUsingNextInt(2, 6), TimeUnit.SECONDS));
+            prickUpOrderFromRegularShelf(frozenShelf.poll());
+            prickUpOrderFromRegularShelf(hotShelf.poll());
+            prickUpOrderFromRegularShelf(coldShelf.poll());
+            prickUpOrderFromROverflowShelf(overflowShelf.poll());
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

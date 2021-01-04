@@ -10,9 +10,14 @@ public class AppProperties {
     private int parallelism;
 
     /**
-     * batch processing time in seconds. eg: 2 orders per second
+     * batch processing time in seconds. eg: 'x' parallels orders per 'y' second
      */
     private int throttle;
+
+    /**
+     * custom thread pool name.
+     */
+    private String threadPoolName;
 
     /**
      * filename that will be processed.
@@ -63,6 +68,14 @@ public class AppProperties {
 
     public void setThrottle(int throttle) {
         this.throttle = throttle;
+    }
+
+    public String getThreadPoolName() {
+        return threadPoolName;
+    }
+
+    public void setThreadPoolName(String threadPoolName) {
+        this.threadPoolName = threadPoolName;
     }
 
     public String getFilename() {
