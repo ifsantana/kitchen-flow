@@ -1,12 +1,12 @@
-package br.com.italo.santana.challenge.prompt.service.orders;
+package br.com.italo.santana.challenge.prompt.services.orders;
 
-import br.com.italo.santana.challenge.prompt.config.AppProperties;
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.factories.NamedForkJoinWorkerThreadFactory;
 import br.com.italo.santana.challenge.prompt.interfaces.kitchens.KitchenService;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderRepository;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderService;
-import br.com.italo.santana.challenge.prompt.service.kitchen.KitchenServiceImpl;
+import br.com.italo.santana.challenge.prompt.services.kitchen.KitchenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;

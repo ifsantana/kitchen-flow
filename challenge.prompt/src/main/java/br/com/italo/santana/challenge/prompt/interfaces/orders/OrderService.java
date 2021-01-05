@@ -2,9 +2,9 @@ package br.com.italo.santana.challenge.prompt.interfaces.orders;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import org.springframework.stereotype.Component;
-import br.com.italo.santana.challenge.prompt.config.AppProperties;
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import java.io.IOException;
-import br.com.italo.santana.challenge.prompt.service.orders.OrderServiceImpl;
+import br.com.italo.santana.challenge.prompt.services.orders.OrderServiceImpl;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;

@@ -1,6 +1,6 @@
 package br.com.italo.santana.challenge.prompt;
 
-import br.com.italo.santana.challenge.prompt.config.AppProperties;
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,4 +1,4 @@
-package br.com.italo.santana.challenge.prompt;
+package br.com.italo.santana.challenge.prompt.application;
 
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package br.com.italo.santana.challenge.prompt.service.delivery;
+package br.com.italo.santana.challenge.prompt.services.delivery;
 
 import br.com.italo.santana.challenge.prompt.consumers.CourierConsumer;
 import br.com.italo.santana.challenge.prompt.domain.Order;

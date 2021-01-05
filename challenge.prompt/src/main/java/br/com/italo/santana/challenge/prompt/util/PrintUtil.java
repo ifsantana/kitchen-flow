@@ -10,10 +10,10 @@ public class PrintUtil {
                                            BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
 
-        StringBuilder event = new StringBuilder("{ event_description: ")
+        StringBuilder event = new StringBuilder("{ event_type: ")
                 .append(eventDescription)
                 .append(", current_order: ")
-                .append(order.toString())
+                .append(JsonParserUtil.toJson(order))
                 .append(", hotShelf: " )
                 .append(hotShelf)
                 .append(", coldShelf: ")

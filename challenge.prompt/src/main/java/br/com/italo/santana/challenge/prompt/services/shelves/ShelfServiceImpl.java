@@ -1,6 +1,6 @@
-package br.com.italo.santana.challenge.prompt.service.shelves;
+package br.com.italo.santana.challenge.prompt.services.shelves;
 
-import br.com.italo.santana.challenge.prompt.config.AppProperties;
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 import br.com.italo.santana.challenge.prompt.interfaces.shelves.ShelfService;

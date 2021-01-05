@@ -1,7 +1,7 @@
 package br.com.italo.santana.challenge.prompt.interfaces.kitchens;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
-import br.com.italo.santana.challenge.prompt.service.kitchen.KitchenServiceImpl;
+import br.com.italo.santana.challenge.prompt.services.kitchen.KitchenServiceImpl;
 import org.springframework.stereotype.Component;
 
 /**

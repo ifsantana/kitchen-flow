@@ -1,5 +1,8 @@
 package br.com.italo.santana.challenge.prompt.enums;
 
+/**
+ * Entity that represents events to log.
+ */
 public enum EventType {
     ORDER_RECEIVED_BY_THE_KITCHEN("ORDER_RECEIVED_BY_THE_KITCHEN"),
     ORDER_ALLOCATED_ON_THE_HOT_SHELF("ORDER_ALLOCATED_ON_THE_HOT_SHELF"),

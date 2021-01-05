@@ -2,24 +2,58 @@ package br.com.italo.santana.challenge.prompt.domain;
 
 import br.com.italo.santana.challenge.prompt.util.DateTimeUtil;
 import br.com.italo.santana.challenge.prompt.util.JsonParserUtil;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Entity that represents a client Order.
+ */
 public class Order {
+    /**
+     * unique id
+     */
     private UUID id;
+    /**
+     * order item name
+     */
     private String name;
+
+    /**
+     * order item ideal temperature.
+     */
     private String temp;
+
+    /**
+     * order item lifetime in shelf
+     */
     private int shelfLife;
+
+    /**
+     * order item decay rate
+     */
     private Double decayRate;
+
+    /**
+     * order item create datetime
+     */
     private LocalDateTime createDate;
+
+    /**
+     *
+     */
     private double shelfLifeValue;
 
+    /**
+     * Class default constructor
+     */
     public Order() {
         this.setCreateDate(LocalDateTime.now());
     }
 
+    /**
+     * Class constructor that specifies properties
+     */
     public Order(UUID id, String name, String temp, int shelfLife, Double decayRate) {
         this.setId(id);
         this.setName(name);
@@ -63,9 +97,7 @@ public class Order {
         return decayRate;
     }
 
-    private void setDecayRate(Double decayRate) {
-        this.decayRate = Objects.requireNonNull(decayRate, "decayRate must not be null!!!");
-    }
+    private void setDecayRate(Double decayRate) { this.decayRate = Objects.requireNonNull(decayRate, "decayRate must not be null!!!"); }
 
     LocalDateTime getCreateDate() {
         return createDate;
@@ -79,7 +111,8 @@ public class Order {
 
     private void setShelfLifeValue(double shelfLifeValue) { this.shelfLifeValue = Objects.requireNonNull(shelfLifeValue, "shelfLifeValue must not be null!!!"); }
 
-    public boolean isValidValidForDelivery(int shelfDecayModifier) {
+    public boolean isValidValidForDelivery(int shelfDecayModifier)
+    {
 
         long orderAge = DateTimeUtil.calculateAgeInSeconds(this.getCreateDate(), LocalDateTime.now());
 
@@ -90,15 +123,5 @@ public class Order {
         return value > 0;
     }
 
-    @Override
-    public String toString() {
-        return JsonParserUtil.toJson(this);
-        /*return "{ id: "+ this.id + "," +
-                "name: "+ this.name + "," +
-                "temp: "+ this.temp + "," +
-                "shelfLife: "+ this.shelfLife + "," +
-                "decayRate: "+ this.decayRate + "," +
-                "createDate: "+ this.createDate + "," +
-                "shelfLifeValue: "+ this.shelfLifeValue +" }";*/
-    }
+
 }

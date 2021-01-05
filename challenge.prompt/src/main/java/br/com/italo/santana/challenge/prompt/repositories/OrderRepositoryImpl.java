@@ -1,4 +1,4 @@
-package br.com.italo.santana.challenge.prompt.repository;
+package br.com.italo.santana.challenge.prompt.repositories;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderRepository;

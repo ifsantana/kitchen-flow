@@ -1,4 +1,4 @@
-package br.com.italo.santana.challenge.prompt.service.kitchen;
+package br.com.italo.santana.challenge.prompt.services.kitchen;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.enums.EventType;

@@ -1,4 +1,4 @@
-package br.com.italo.santana.challenge.prompt.config;
+package br.com.italo.santana.challenge.prompt.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
