@@ -7,6 +7,8 @@ import java.util.UUID;
 
 /**
  * Entity that represents a client Order.
+ *
+ * @author italosantana
  */
 public class Order {
     /**

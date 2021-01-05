@@ -4,6 +4,11 @@ import br.com.italo.santana.challenge.prompt.domain.Order;
 import org.slf4j.Logger;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * Utility class to log application events and states.
+ *
+ * @author italosantana
+ */
 public class PrintUtil {
 
     public static void PrintShelvesContent(Logger logger, String eventDescription,Object order,

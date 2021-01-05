@@ -11,6 +11,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Service responsible for shelves management.
+ *
+ * @author italosantana
  */
 @Service
 public class ShelfServiceImpl implements ShelfService {
@@ -34,7 +36,6 @@ public class ShelfServiceImpl implements ShelfService {
 
         if(!tryToAllocateInRegularShelf(order)) {
             if(!tryToAllocateInOverflowShelf(order)) {
-
                 Order movedOrder = overflowShelf.take();
 
                 if(!tryToAllocateInRegularShelf(movedOrder)) {

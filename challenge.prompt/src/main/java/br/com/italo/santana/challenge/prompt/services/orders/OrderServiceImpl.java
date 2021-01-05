@@ -15,6 +15,8 @@ import java.util.concurrent.*;
 
 /**
  * Service responsible for process the orders, controlling the flow according to the application settings.
+ *
+ * @author italosantana
  */
 @Service
 public class OrderServiceImpl implements OrderService {

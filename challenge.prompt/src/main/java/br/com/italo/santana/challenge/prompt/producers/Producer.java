@@ -10,6 +10,8 @@ import br.com.italo.santana.challenge.prompt.consumers.CourierConsumer;
 
 /**
  * Class responsible for producing messages for consumers when a new order is placed in the queue.
+ *
+ * @author italosantana
  */
 public class Producer  {
     private static final Logger LOG = LoggerFactory.getLogger(Producer.class.getSimpleName());
@@ -44,7 +46,7 @@ public class Producer  {
     }
 
     /**
-     *
+     * This method put and order in hot shelf and notifies an courier {@link CourierConsumer} to pick up the order.
      * @param order
      * @return
      */
@@ -61,7 +63,7 @@ public class Producer  {
     }
 
     /**
-     *
+     * This method put and order in frozen shelf and notifies an courier {@link CourierConsumer} to pick up the order.
      * @param order
      * @return
      */
@@ -78,7 +80,7 @@ public class Producer  {
     }
 
     /***
-     *
+     * This method put and order in cold overflow and notifies an courier {@link CourierConsumer} to pick up the order.
      * @param order
      * @return
      */

@@ -11,6 +11,7 @@ import java.lang.reflect.Type;
 /**
  * Only to encapsulate the default Json parser.
  *
+ * @author italosantana
  */
 public class JsonParserUtil {
 
@@ -30,10 +31,20 @@ public class JsonParserUtil {
         return new Gson().fromJson(reader, typeToken);
     }
 
+    /**
+     * Converts any object to its simple JSON string representation.
+     * @param obj
+     * @return
+     */
     public static String toJson(Object obj) {
         return gson.toJson(obj);
     }
 
+    /**
+     * Converts any ugly JSON string to a pretty JSON string representation.
+     * @param uglyJSONString
+     * @return
+     */
     public static  String prettyJson(String uglyJSONString) {
         Gson gson = new GsonBuilder().create();
         JsonParser jp = new JsonParser();

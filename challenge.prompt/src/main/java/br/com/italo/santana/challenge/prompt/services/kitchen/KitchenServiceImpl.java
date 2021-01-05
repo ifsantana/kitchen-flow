@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * Class that receives orders to cook and to notify the couriers.
+ *
+ * @author italosantana
  */
 @Service
 public class KitchenServiceImpl implements KitchenService {

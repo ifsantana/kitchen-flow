@@ -15,6 +15,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Repository for manager the {@link Order} entity.
+ *
+ * @author italosantana
+ */
 @Service
 public class OrderRepositoryImpl implements OrderRepository {
     private AppProperties appProperties;

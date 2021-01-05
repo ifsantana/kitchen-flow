@@ -5,7 +5,9 @@ import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * ForkJoin factory implementation to create customs thread pools.
  *
+ * @author italosantana
  */
 public class NamedForkJoinWorkerThreadFactory implements ForkJoinPool.ForkJoinWorkerThreadFactory {
 

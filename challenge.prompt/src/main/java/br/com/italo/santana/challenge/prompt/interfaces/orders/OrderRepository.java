@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Class responsible to access the file repository and return the orders.
+ *
+ * @author italosantana
  */
 @Component
 public interface OrderRepository {

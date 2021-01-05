@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.BlockingQueue;
 
 /**
+ * Service responsible for manage the couriers to pick up the orders when it's available.
  *
+ * @author italosantana
  */
 @Service
 public class CourierServiceImpl implements CourierService {
@@ -21,7 +23,7 @@ public class CourierServiceImpl implements CourierService {
     }
 
     /**
-     *
+     * this method sends a new courier to pick up an order.
      * @param coldShelve
      * @param hotShelve
      * @param frozenShelve

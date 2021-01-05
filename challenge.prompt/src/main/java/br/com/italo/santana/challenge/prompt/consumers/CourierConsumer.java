@@ -13,6 +13,8 @@ import br.com.italo.santana.challenge.prompt.producers.Producer;
 /**
  * This class listen order entry notifications on shelves emitted by {@link Producer} and
  * waits a courier to pick up the order {@link Order}.
+ *
+ * @author italosantana
  */
 public class CourierConsumer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(CourierConsumer.class.getSimpleName());

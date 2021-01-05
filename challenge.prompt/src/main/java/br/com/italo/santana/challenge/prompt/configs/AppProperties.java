@@ -2,6 +2,11 @@ package br.com.italo.santana.challenge.prompt.configs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * Properties are configured in the application.properties file.
+ *
+ * @author italosantana
+ */
 @ConfigurationProperties(prefix = "application")
 public class AppProperties {
     /**

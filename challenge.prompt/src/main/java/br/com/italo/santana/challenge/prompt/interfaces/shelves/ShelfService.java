@@ -3,7 +3,13 @@ package br.com.italo.santana.challenge.prompt.interfaces.shelves;
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.BlockingQueue;
+import br.com.italo.santana.challenge.prompt.services.shelves.ShelfServiceImpl;
 
+/**
+ * Contract for {@link ShelfServiceImpl}
+ *
+ * @author italosantana
+ */
 @Component
 public interface ShelfService {
 

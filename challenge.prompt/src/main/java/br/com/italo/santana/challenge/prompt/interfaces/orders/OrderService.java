@@ -11,6 +11,8 @@ import java.util.concurrent.TimeoutException;
 
 /**
  * Contract for {@link OrderServiceImpl}
+ *
+ * @author italosantana
  */
 @Component
 public interface OrderService {

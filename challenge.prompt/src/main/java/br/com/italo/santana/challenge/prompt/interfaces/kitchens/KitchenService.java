@@ -6,6 +6,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Contract for {@link KitchenServiceImpl}
+ *
+ * @author italosantana
  */
 @Component
 public interface KitchenService {
