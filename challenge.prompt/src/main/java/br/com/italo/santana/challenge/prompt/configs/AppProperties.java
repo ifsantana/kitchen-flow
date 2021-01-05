@@ -19,6 +19,9 @@ public class AppProperties {
      */
     private String threadPoolName;
 
+    /**
+     * orders file base path.
+     */
     private String fileBasePath;
 
     /**
