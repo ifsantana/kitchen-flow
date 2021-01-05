@@ -19,6 +19,8 @@ public class AppProperties {
      */
     private String threadPoolName;
 
+    private String fileBasePath;
+
     /**
      * filename that will be processed.
      */
@@ -76,6 +78,14 @@ public class AppProperties {
 
     public void setThreadPoolName(String threadPoolName) {
         this.threadPoolName = threadPoolName;
+    }
+
+    public String getFileBasePath() {
+        return fileBasePath;
+    }
+
+    public void setFileBasePath(String fileBasePath) {
+        this.fileBasePath = fileBasePath;
     }
 
     public String getFilename() {

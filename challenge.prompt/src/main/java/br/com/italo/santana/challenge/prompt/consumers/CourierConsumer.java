@@ -16,9 +16,6 @@ import br.com.italo.santana.challenge.prompt.producers.Producer;
  */
 public class CourierConsumer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(CourierConsumer.class.getSimpleName());
-    /**
-     * TODO - Get decay modifiers from application.properties.
-     */
     private Integer REGULAR_SHELF_DECAY_MODIFIER;
     private Integer OVERFLOW_SHELF_DECAY_MODIFIER;
     private BlockingQueue<Order> coldShelf;

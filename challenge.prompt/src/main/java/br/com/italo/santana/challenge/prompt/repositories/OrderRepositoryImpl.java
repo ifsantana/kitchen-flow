@@ -1,5 +1,6 @@
 package br.com.italo.santana.challenge.prompt.repositories;
 
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
 import br.com.italo.santana.challenge.prompt.interfaces.orders.OrderRepository;
 import br.com.italo.santana.challenge.prompt.util.JsonParserUtil;
@@ -16,13 +17,13 @@ import java.util.List;
 
 @Service
 public class OrderRepositoryImpl implements OrderRepository {
-    private final String FILE_BASE_PATH = "/challenge.prompt/src/main/resources/orders/";
-    private final String FILE_NAME = "orders.json";
+    private AppProperties appProperties;
     private Gson gson;
 
     @Autowired
-    public OrderRepositoryImpl() {
+    public OrderRepositoryImpl(AppProperties appProperties) {
         this.gson = new Gson();
+        this.appProperties = appProperties;
     }
 
     @Override
@@ -30,7 +31,9 @@ public class OrderRepositoryImpl implements OrderRepository {
 
         String userDirectory = new File("").getAbsolutePath();
 
-        Reader reader = Files.newBufferedReader(Paths.get(userDirectory + FILE_BASE_PATH + FILE_NAME));
+        Reader reader = Files.newBufferedReader(Paths.get(new StringBuilder(userDirectory)
+                .append(this.appProperties.getFileBasePath())
+                .append(this.appProperties.getFilename()).toString()));
 
         return JsonParserUtil.fromReaderToEntityList(reader, new TypeToken<List<Order>>(){}.getType());
     }
