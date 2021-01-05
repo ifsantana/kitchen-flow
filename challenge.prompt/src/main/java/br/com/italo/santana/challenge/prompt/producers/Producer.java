@@ -6,6 +6,7 @@ import br.com.italo.santana.challenge.prompt.util.PrintUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.concurrent.BlockingQueue;
+import br.com.italo.santana.challenge.prompt.consumers.CourierConsumer;
 
 /**
  * Class responsible for producing messages for consumers when a new order is placed in the queue.
@@ -26,11 +27,11 @@ public class Producer  {
     }
 
     /**
-     *
+     * This method put and order in cold shelf and notifies an courier {@link CourierConsumer} to pick up the order.
      * @param order
      * @return
      */
-    public boolean putOrderOnColdShelve(Order order) {
+    public boolean putOrderOnColdShelf(Order order) {
 
         boolean wasTheOrderInserted = coldShelf.offer(order);
 
@@ -47,7 +48,7 @@ public class Producer  {
      * @param order
      * @return
      */
-    public boolean putOrderOnHotShelve(Order order) {
+    public boolean putOrderOnHotShelf(Order order) {
 
         boolean wasTheOrderInserted = hotShelf.offer(order);
 
@@ -64,7 +65,7 @@ public class Producer  {
      * @param order
      * @return
      */
-    public boolean putOrderOnFrozenShelve(Order order) {
+    public boolean putOrderOnFrozenShelf(Order order) {
 
         boolean wasTheOrderInserted = frozenShelf.offer(order);
 
@@ -81,7 +82,7 @@ public class Producer  {
      * @param order
      * @return
      */
-    public boolean putOrderOnOverflowShelve(Order order) {
+    public boolean putOrderOnOverflowShelf(Order order) {
 
         boolean wasTheOrderInserted = overflowShelf.offer(order);
 

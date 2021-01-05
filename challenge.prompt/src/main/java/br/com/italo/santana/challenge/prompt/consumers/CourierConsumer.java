@@ -11,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 
 /**
- * this class listen order entry notifications on shelves emitted by {@link Producer} and
+ * This class listen order entry notifications on shelves emitted by {@link Producer} and
  * waits a courier to pick up the order {@link Order}.
  */
 public class CourierConsumer implements Runnable {
@@ -19,15 +19,18 @@ public class CourierConsumer implements Runnable {
     /**
      * TODO - Get decay modifiers from application.properties.
      */
-    private final Integer REGULAR_SHELF_DECAY_MODIFIER = 1;
-    private final Integer OVERFLOW_SHELF_DECAY_MODIFIER = 2;
+    private Integer REGULAR_SHELF_DECAY_MODIFIER;
+    private Integer OVERFLOW_SHELF_DECAY_MODIFIER;
     private BlockingQueue<Order> coldShelf;
     private BlockingQueue<Order> hotShelf;
     private BlockingQueue<Order> frozenShelf;
     private BlockingQueue<Order> overflowShelf;
 
-    public CourierConsumer(BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
+    public CourierConsumer(Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
+                           BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
+        this.REGULAR_SHELF_DECAY_MODIFIER = regularShelfDecayModifier;
+        this.OVERFLOW_SHELF_DECAY_MODIFIER = overflowShelfDecayModifier;
         this.coldShelf = coldShelf;
         this.hotShelf = hotShelf;
         this.frozenShelf = frozenShelf;

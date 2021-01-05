@@ -7,7 +7,7 @@ public class AppProperties {
     /**
      * number of parallelism processing.
      */
-    private int parallelism;
+    private Integer parallelism;
 
     /**
      * batch processing time in seconds. eg: 'x' parallels orders per 'y' second
@@ -27,38 +27,38 @@ public class AppProperties {
     /**
      * cold shelf queue capacity.
      */
-    private int coldShelfCapacity;
+    private Integer coldShelfCapacity;
 
     /**
      * hot shelf queue capacity.
      */
-    private int hotShelfCapacity;
+    private Integer hotShelfCapacity;
 
     /**
      * frozen shelf queue capacity.
      */
-    private int frozenShelfCapacity;
+    private Integer frozenShelfCapacity;
 
     /**
      * overflow shelf queue capacity.
      */
-    private int overflowShelfCapacity;
+    private Integer overflowShelfCapacity;
 
     /**
      * regular shelf (hot, frozen, cold) decay modifier.
      */
-    private int regularShelfDecayModifier;
+    private Integer regularShelfDecayModifier;
 
     /**
      * overflow shelf decay modifier.
      */
-    private int overflowShelfDecayModifier;
+    private Integer overflowShelfDecayModifier;
 
-    public int getParallelism() {
+    public Integer getParallelism() {
         return parallelism;
     }
 
-    public void setParallelism(int parallelism) {
+    public void setParallelism(Integer parallelism) {
         this.parallelism = parallelism;
     }
 
@@ -86,51 +86,51 @@ public class AppProperties {
         this.filename = filename;
     }
 
-    public int getColdShelfCapacity() {
+    public Integer getColdShelfCapacity() {
         return coldShelfCapacity;
     }
 
-    public void setColdShelfCapacity(int coldShelfCapacity) {
+    public void setColdShelfCapacity(Integer coldShelfCapacity) {
         this.coldShelfCapacity = coldShelfCapacity;
     }
 
-    public int getHotShelfCapacity() {
+    public Integer getHotShelfCapacity() {
         return hotShelfCapacity;
     }
 
-    public void setHotShelfCapacity(int hotShelfCapacity) {
+    public void setHotShelfCapacity(Integer hotShelfCapacity) {
         this.hotShelfCapacity = hotShelfCapacity;
     }
 
-    public int getFrozenShelfCapacity() {
+    public Integer getFrozenShelfCapacity() {
         return frozenShelfCapacity;
     }
 
-    public void setFrozenShelfCapacity(int frozenShelfCapacity) {
+    public void setFrozenShelfCapacity(Integer frozenShelfCapacity) {
         this.frozenShelfCapacity = frozenShelfCapacity;
     }
 
-    public int getOverflowShelfCapacity() {
+    public Integer getOverflowShelfCapacity() {
         return overflowShelfCapacity;
     }
 
-    public void setOverflowShelfCapacity(int overflowShelfCapacity) {
+    public void setOverflowShelfCapacity(Integer overflowShelfCapacity) {
         this.overflowShelfCapacity = overflowShelfCapacity;
     }
 
-    public int getRegularShelfDecayModifier() {
+    public Integer getRegularShelfDecayModifier() {
         return regularShelfDecayModifier;
     }
 
-    public void setRegularShelfDecayModifier(int regularShelfDecayModifier) {
+    public void setRegularShelfDecayModifier(Integer regularShelfDecayModifier) {
         this.regularShelfDecayModifier = regularShelfDecayModifier;
     }
 
-    public int getOverflowShelfDecayModifier() {
+    public Integer getOverflowShelfDecayModifier() {
         return overflowShelfDecayModifier;
     }
 
-    public void setOverflowShelfDecayModifier(int overflowShelfDecayModifier) {
+    public void setOverflowShelfDecayModifier(Integer overflowShelfDecayModifier) {
         this.overflowShelfDecayModifier = overflowShelfDecayModifier;
     }
 }

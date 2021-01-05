@@ -47,11 +47,11 @@ public class ShelfServiceImpl implements ShelfService {
     public boolean tryToAllocateInRegularShelf(Order order) {
 
         if(order.getTemp().equalsIgnoreCase("hot") && hotShelf.remainingCapacity() > 0) {
-            return this.producer.putOrderOnHotShelve(order);
+            return this.producer.putOrderOnHotShelf(order);
         } else if(order.getTemp().equalsIgnoreCase("cold") && coldShelf.remainingCapacity() > 0) {
-            return this.producer.putOrderOnColdShelve(order);
+            return this.producer.putOrderOnColdShelf(order);
         } else if(order.getTemp().equalsIgnoreCase("frozen") && frozenShelf.remainingCapacity() > 0) {
-            return this.producer.putOrderOnFrozenShelve(order);
+            return this.producer.putOrderOnFrozenShelf(order);
         } else {
             return false;
         }
@@ -60,7 +60,7 @@ public class ShelfServiceImpl implements ShelfService {
     public boolean tryToAllocateInOverflowShelf(Order order) {
 
         if(overflowShelf.remainingCapacity() > 0) {
-            return this.producer.putOrderOnOverflowShelve(order);
+            return this.producer.putOrderOnOverflowShelf(order);
         }
 
         return false;
