@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
@@ -34,6 +35,19 @@ public class OrderServiceImpl implements OrderService {
         this.setCustomThreadPool(this.appProperties.getParallelism());
     }
 
+    private void setCustomThreadPool(int parallelism) {
+
+        if(Objects.isNull(parallelism) || parallelism == 0) {
+            this.customThreadPool = new ForkJoinPool(getIdealNumberOfThreads(),
+                    new NamedForkJoinWorkerThreadFactory(this.appProperties.getThreadPoolName(),false),
+                    null, false);
+        } else {
+            this.customThreadPool = new ForkJoinPool(parallelism,
+                    new NamedForkJoinWorkerThreadFactory(this.appProperties.getThreadPoolName(),false),
+                    null, false);
+        }
+    }
+
     public List<Order> getAllOrders() throws IOException {
         return ordersRepository.getAllOrders();
     }
@@ -44,10 +58,10 @@ public class OrderServiceImpl implements OrderService {
 
         try {
             this.customThreadPool.submit(() ->
-                    orders.parallelStream().forEach(order ->  {
+                    orders.parallelStream().forEachOrdered(order ->  {
                         try {
                             this.kitchenService.cook(order);
-                            TimeUnit.SECONDS.sleep(this.appProperties.getThrottle());
+                            TimeUnit.MILLISECONDS.sleep(500);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -57,9 +71,10 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void setCustomThreadPool(int parallelism) {
+    private Integer getIdealNumberOfThreads() {
 
-        this.customThreadPool = new ForkJoinPool(this.appProperties.getParallelism(),
-                new NamedForkJoinWorkerThreadFactory(this.appProperties.getThreadPoolName(),false), null, false);
+        Integer cores = Runtime.getRuntime().availableProcessors();
+
+        return cores * (1 + 50 / 5);
     }
 }

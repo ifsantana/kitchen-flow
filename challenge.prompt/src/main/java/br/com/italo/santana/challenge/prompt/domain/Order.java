@@ -68,7 +68,7 @@ public class Order {
         return id;
     }
 
-    private void setId(UUID id) {
+    public void setId(UUID id) {
         this.id = Objects.requireNonNull(id, "id must not be null!!! ");
     }
 
@@ -76,7 +76,7 @@ public class Order {
         return name;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = Objects.requireNonNull(name, "name must not be null!!!");
     }
 
@@ -84,7 +84,7 @@ public class Order {
         return temp;
     }
 
-    private void setTemp(String temp) {
+    public void setTemp(String temp) {
         this.temp = Objects.requireNonNull(temp, "temperaqture must not be null!!!");
     }
 
@@ -92,25 +92,25 @@ public class Order {
         return shelfLife;
     }
 
-    private void setShelfLife(int shelfLife) { this.shelfLife = Objects.requireNonNull(shelfLife, "shelfLife must not be null!!!"); }
+    public void setShelfLife(int shelfLife) { this.shelfLife = Objects.requireNonNull(shelfLife, "shelfLife must not be null!!!"); }
 
     public Double getDecayRate() {
         return decayRate;
     }
 
-    private void setDecayRate(Double decayRate) { this.decayRate = Objects.requireNonNull(decayRate, "decayRate must not be null!!!"); }
+    public void setDecayRate(Double decayRate) { this.decayRate = Objects.requireNonNull(decayRate, "decayRate must not be null!!!"); }
 
     LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    private void setCreateDate(LocalDateTime createDate) { this.createDate = Objects.requireNonNull(createDate, "createDate must not be null!!!"); }
+    public void setCreateDate(LocalDateTime createDate) { this.createDate = Objects.requireNonNull(createDate, "createDate must not be null!!!"); }
 
     public double getShelfLifeValue() {
         return shelfLifeValue;
     }
 
-    private void setShelfLifeValue(double shelfLifeValue) { this.shelfLifeValue = Objects.requireNonNull(shelfLifeValue, "shelfLifeValue must not be null!!!"); }
+    public void setShelfLifeValue(double shelfLifeValue) { this.shelfLifeValue = Objects.requireNonNull(shelfLifeValue, "shelfLifeValue must not be null!!!"); }
 
     /**
      * This method checks and returns whether the order is valid (should be collected to delivery) or is not valid (should be discarded).
