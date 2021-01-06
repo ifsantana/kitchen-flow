@@ -15,7 +15,6 @@ import java.util.concurrent.BlockingQueue;
  */
 @Service
 public class CourierServiceImpl implements CourierService {
-
     private AppProperties appProperties;
 
     @Autowired

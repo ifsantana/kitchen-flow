@@ -19,17 +19,18 @@ import br.com.italo.santana.challenge.prompt.producers.Producer;
  */
 public class CourierConsumer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(CourierConsumer.class.getSimpleName());
-    private Integer REGULAR_SHELF_DECAY_MODIFIER, OVERFLOW_SHELF_DECAY_MODIFIER, COURIER_MIN_ARRIVE_TIME, COURIER_MAX_ARRIVE_TIME;
+    private Integer regularShelfDecayModifier, overflowShelfDecayModifier;
+    private Integer courierMinArriveTime, courierMaxArriveTime;
     private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
 
     public CourierConsumer(Integer courierMinArriveTime, Integer courierMaxArriveTime,
                            Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
                            BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
-        this.REGULAR_SHELF_DECAY_MODIFIER = regularShelfDecayModifier;
-        this.OVERFLOW_SHELF_DECAY_MODIFIER = overflowShelfDecayModifier;
-        this.COURIER_MIN_ARRIVE_TIME = courierMinArriveTime;
-        this.COURIER_MAX_ARRIVE_TIME = courierMaxArriveTime;
+        this.regularShelfDecayModifier = regularShelfDecayModifier;
+        this.overflowShelfDecayModifier = overflowShelfDecayModifier;
+        this.courierMinArriveTime = courierMinArriveTime;
+        this.courierMaxArriveTime = courierMaxArriveTime;
         this.coldShelf = coldShelf;
         this.hotShelf = hotShelf;
         this.frozenShelf = frozenShelf;
@@ -56,7 +57,7 @@ public class CourierConsumer implements Runnable {
     private void pickUpOrderFromRegularShelf(Order order) throws InterruptedException {
         if (Objects.nonNull(order)) {
 
-            if(order.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER)) {
+            if(order.isValidValidForDelivery(regularShelfDecayModifier)) {
 
                 PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
@@ -80,7 +81,7 @@ public class CourierConsumer implements Runnable {
     private void pickUpOrderFromOverflowShelf(Order order) throws InterruptedException {
         if (Objects.nonNull(order)) {
 
-            if(order.isValidValidForDelivery(OVERFLOW_SHELF_DECAY_MODIFIER)) {
+            if(order.isValidValidForDelivery(overflowShelfDecayModifier)) {
 
                 PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
@@ -101,7 +102,7 @@ public class CourierConsumer implements Runnable {
      * @throws InterruptedException
      */
     private void waitForACourier() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(RandomUtil.getRandomNumberUsingNextInt(this.COURIER_MIN_ARRIVE_TIME,
-                                                                      this.COURIER_MAX_ARRIVE_TIME));
+        TimeUnit.SECONDS.sleep(RandomUtil.getRandomNumberUsingNextInt(this.courierMinArriveTime,
+                                                                      this.courierMaxArriveTime));
     }
 }

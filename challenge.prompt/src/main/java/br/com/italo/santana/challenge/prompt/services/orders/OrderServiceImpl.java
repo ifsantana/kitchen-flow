@@ -61,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
                     orders.parallelStream().forEachOrdered(order ->  {
                         try {
                             this.kitchenService.cook(order);
-                            TimeUnit.MILLISECONDS.sleep(500);
+                            TimeUnit.MILLISECONDS.sleep(this.appProperties.getThrottle());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
