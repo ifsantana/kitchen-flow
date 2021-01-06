@@ -11,10 +11,12 @@ import java.util.UUID;
  * @author italosantana
  */
 public class Order {
+
     /**
      * unique id
      */
     private UUID id;
+
     /**
      * order item name
      */
@@ -43,7 +45,7 @@ public class Order {
     /**
      *
      */
-    private double shelfLifeValue;
+    private Double shelfLifeValue;
 
     /**
      * Class default constructor
@@ -106,7 +108,7 @@ public class Order {
 
     public void setCreateDate(LocalDateTime createDate) { this.createDate = Objects.requireNonNull(createDate, "createDate must not be null!!!"); }
 
-    public double getShelfLifeValue() {
+    public Double getShelfLifeValue() {
         return shelfLifeValue;
     }
 
@@ -117,8 +119,7 @@ public class Order {
      * @param shelfDecayModifier
      * @return
      */
-    public boolean isValidValidForDelivery(int shelfDecayModifier)
-    {
+    public boolean isValidValidForDelivery(int shelfDecayModifier) {
         long orderAge = DateTimeUtil.calculateAgeInSeconds(this.getCreateDate(), LocalDateTime.now());
 
         this.setShelfLifeValue(calculateShelfLifeValue(orderAge, shelfDecayModifier));

@@ -16,11 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Service
 public class ShelfServiceImpl implements ShelfService {
-
-    private BlockingQueue<Order> coldShelf;
-    private BlockingQueue<Order> hotShelf;
-    private BlockingQueue<Order> frozenShelf;
-    private BlockingQueue<Order> overflowShelf;
+    private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
     private Producer producer;
 
     @Autowired

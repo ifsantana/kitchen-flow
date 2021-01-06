@@ -15,10 +15,7 @@ import br.com.italo.santana.challenge.prompt.consumers.CourierConsumer;
  */
 public class Producer  {
     private static final Logger LOG = LoggerFactory.getLogger(Producer.class.getSimpleName());
-    private BlockingQueue<Order> coldShelf;
-    private BlockingQueue<Order> hotShelf;
-    private BlockingQueue<Order> frozenShelf;
-    private BlockingQueue<Order> overflowShelf;
+    private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
 
     public Producer(BlockingQueue<Order> coldShelf, BlockingQueue<Order> hotShelf,
                     BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
-
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 
 /**
@@ -20,14 +19,8 @@ import br.com.italo.santana.challenge.prompt.producers.Producer;
  */
 public class CourierConsumer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(CourierConsumer.class.getSimpleName());
-    private Integer REGULAR_SHELF_DECAY_MODIFIER;
-    private Integer OVERFLOW_SHELF_DECAY_MODIFIER;
-    private Integer COURIER_MIN_ARRIVE_TIME;
-    private Integer COURIER_MAX_ARRIVE_TIME;
-    private BlockingQueue<Order> coldShelf;
-    private BlockingQueue<Order> hotShelf;
-    private BlockingQueue<Order> frozenShelf;
-    private BlockingQueue<Order> overflowShelf;
+    private Integer REGULAR_SHELF_DECAY_MODIFIER, OVERFLOW_SHELF_DECAY_MODIFIER, COURIER_MIN_ARRIVE_TIME, COURIER_MAX_ARRIVE_TIME;
+    private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
 
     public CourierConsumer(Integer courierMinArriveTime, Integer courierMaxArriveTime,
                            Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
