@@ -26,7 +26,7 @@ public class ShelfServiceTests {
     private AppProperties appProperties;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
 
         this.frozenTempOrder = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
