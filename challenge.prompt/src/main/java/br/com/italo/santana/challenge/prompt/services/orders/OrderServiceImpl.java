@@ -31,8 +31,7 @@ public class OrderServiceImpl implements OrderService {
         this.appProperties = appProperties;
         this.ordersRepository = ordersRepository;
         this.kitchenService = kitchenService;
-        this.customThreadPool = new ForkJoinPool(this.appProperties.getParallelism(),
-                new NamedForkJoinWorkerThreadFactory(this.appProperties.getThreadPoolName(),false), null, false);
+        this.setCustomThreadPool(this.appProperties.getParallelism());
     }
 
     public List<Order> getAllOrders() throws IOException {
@@ -56,5 +55,11 @@ public class OrderServiceImpl implements OrderService {
         } finally {
             this.customThreadPool.shutdownNow();
         }
+    }
+
+    private void setCustomThreadPool(int parallelism) {
+
+        this.customThreadPool = new ForkJoinPool(this.appProperties.getParallelism(),
+                new NamedForkJoinWorkerThreadFactory(this.appProperties.getThreadPoolName(),false), null, false);
     }
 }
