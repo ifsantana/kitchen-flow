@@ -15,6 +15,7 @@ import java.util.concurrent.BlockingQueue;
  */
 @Service
 public class CourierServiceImpl implements CourierService {
+
     private AppProperties appProperties;
 
     @Autowired
@@ -32,7 +33,9 @@ public class CourierServiceImpl implements CourierService {
     public void sendCourier(BlockingQueue<Order> coldShelve, BlockingQueue<Order> hotShelve,
                             BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve) {
 
-        new Thread(new CourierConsumer(this.appProperties.getRegularShelfDecayModifier(),
+        new Thread(new CourierConsumer(this.appProperties.getCourierMinArriveTime(),
+                                        this.appProperties.getCourierMaxArriveTime(),
+                                        this.appProperties.getRegularShelfDecayModifier(),
                                         this.appProperties.getOverflowShelfDecayModifier(),
                                         coldShelve, hotShelve, frozenShelve, overflowShelve)).start();
     }

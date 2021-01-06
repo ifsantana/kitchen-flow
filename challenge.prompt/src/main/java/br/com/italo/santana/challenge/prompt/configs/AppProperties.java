@@ -64,6 +64,10 @@ public class AppProperties {
      */
     private Integer overflowShelfDecayModifier;
 
+    private Integer courierMinArriveTime;
+
+    private Integer courierMaxArriveTime;
+
     public Integer getParallelism() {
         return parallelism;
     }
@@ -150,5 +154,21 @@ public class AppProperties {
 
     public void setOverflowShelfDecayModifier(Integer overflowShelfDecayModifier) {
         this.overflowShelfDecayModifier = overflowShelfDecayModifier;
+    }
+
+    public Integer getCourierMinArriveTime() {
+        return courierMinArriveTime;
+    }
+
+    public void setCourierMinArriveTime(Integer courierMinArriveTime) {
+        this.courierMinArriveTime = courierMinArriveTime;
+    }
+
+    public Integer getCourierMaxArriveTime() {
+        return courierMaxArriveTime;
+    }
+
+    public void setCourierMaxArriveTime(Integer courierMaxArriveTime) {
+        this.courierMaxArriveTime = courierMaxArriveTime;
     }
 }

@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 
 /**
@@ -20,16 +22,21 @@ public class CourierConsumer implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(CourierConsumer.class.getSimpleName());
     private Integer REGULAR_SHELF_DECAY_MODIFIER;
     private Integer OVERFLOW_SHELF_DECAY_MODIFIER;
+    private Integer COURIER_MIN_ARRIVE_TIME;
+    private Integer COURIER_MAX_ARRIVE_TIME;
     private BlockingQueue<Order> coldShelf;
     private BlockingQueue<Order> hotShelf;
     private BlockingQueue<Order> frozenShelf;
     private BlockingQueue<Order> overflowShelf;
 
-    public CourierConsumer(Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
+    public CourierConsumer(Integer courierMinArriveTime, Integer courierMaxArriveTime,
+                           Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
                            BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
                            BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
         this.REGULAR_SHELF_DECAY_MODIFIER = regularShelfDecayModifier;
         this.OVERFLOW_SHELF_DECAY_MODIFIER = overflowShelfDecayModifier;
+        this.COURIER_MIN_ARRIVE_TIME = courierMinArriveTime;
+        this.COURIER_MAX_ARRIVE_TIME = courierMaxArriveTime;
         this.coldShelf = coldShelf;
         this.hotShelf = hotShelf;
         this.frozenShelf = frozenShelf;
@@ -101,6 +108,7 @@ public class CourierConsumer implements Runnable {
      * @throws InterruptedException
      */
     private void waitForACourier() throws InterruptedException {
-        Thread.sleep(RandomUtil.getRandomNumberUsingNextInt(2000, 6000));
+        TimeUnit.SECONDS.sleep(RandomUtil.getRandomNumberUsingNextInt(this.COURIER_MIN_ARRIVE_TIME,
+                                                                      this.COURIER_MAX_ARRIVE_TIME));
     }
 }
