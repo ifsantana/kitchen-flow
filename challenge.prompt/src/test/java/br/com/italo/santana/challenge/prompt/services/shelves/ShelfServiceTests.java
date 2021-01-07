@@ -2,37 +2,35 @@ package br.com.italo.santana.challenge.prompt.services.shelves;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
-import br.com.italo.santana.challenge.prompt.producers.Producer;
 import br.com.italo.santana.challenge.prompt.util.GenericBuilderUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 public class ShelfServiceTests {
-    private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
-    private Order coldTempOrder, hotTempOrder,hotTempOrder2, hotTempOrder3, frozenTempOrder;
-    private Producer producer;
 
+    private Order coldTempOrder, hotTempOrder,hotTempOrder2, hotTempOrder3, frozenTempOrder;
+
+    @InjectMocks
     private ShelfServiceImpl service;
+
+    @Mock
+    private AppProperties appProperties;
 
     @BeforeEach
     public void setup() {
-        this.service = new ShelfServiceImpl();
-        this.coldShelf = new LinkedBlockingQueue<>(1);
-        this.hotShelf = new LinkedBlockingQueue<>(1);
-        this.frozenShelf = new LinkedBlockingQueue<>(1);
-        this.overflowShelf = new LinkedBlockingQueue<>(1);
-        this.producer = new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf);
+
         this.frozenTempOrder = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
                 .with(Order::setCreateDate, LocalDateTime.now())
@@ -77,12 +75,6 @@ public class ShelfServiceTests {
                 .with(Order::setShelfLife, 200)
                 .with(Order::setDecayRate, 0.76)
                 .build();
-
-        this.service.setColdShelf(this.coldShelf);
-        this.service.setHotShelf(this.hotShelf);
-        this.service.setFrozenShelf(this.frozenShelf);
-        this.service.setOverflowShelf(this.overflowShelf);
-        this.service.setProducer(this.producer);
     }
 
     @Test
