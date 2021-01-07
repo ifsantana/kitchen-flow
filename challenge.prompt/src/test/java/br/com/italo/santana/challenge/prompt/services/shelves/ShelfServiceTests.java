@@ -113,7 +113,7 @@ public class ShelfServiceTests {
     }
 
     @Test
-    public void shouldReAllocateOrderInRegularShelf() throws InterruptedException {
+    public void shouldTryToReAllocateOrderInRegularShelf() throws InterruptedException {
 
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
         this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
