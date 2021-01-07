@@ -1,6 +1,5 @@
 package br.com.italo.santana.challenge.prompt.services.shelves;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import br.com.italo.santana.challenge.prompt.domain.Order;
@@ -29,7 +28,11 @@ public class ShelfServiceTests {
     @BeforeEach
     public void setup() {
         this.service = new ShelfServiceImpl();
-
+        this.coldShelf = new LinkedBlockingQueue<>(1);
+        this.hotShelf = new LinkedBlockingQueue<>(1);
+        this.frozenShelf = new LinkedBlockingQueue<>(1);
+        this.overflowShelf = new LinkedBlockingQueue<>(1);
+        this.producer = new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf);
         this.frozenTempOrder = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
                 .with(Order::setCreateDate, LocalDateTime.now())
@@ -75,11 +78,6 @@ public class ShelfServiceTests {
                 .with(Order::setDecayRate, 0.76)
                 .build();
 
-        this.coldShelf = new LinkedBlockingQueue<>(1);
-        this.hotShelf = new LinkedBlockingQueue<>(1);
-        this.frozenShelf = new LinkedBlockingQueue<>(1);
-        this.overflowShelf = new LinkedBlockingQueue<>(1);
-        this.producer = new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf);
         this.service.setColdShelf(this.coldShelf);
         this.service.setHotShelf(this.hotShelf);
         this.service.setFrozenShelf(this.frozenShelf);
@@ -92,7 +90,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
 
-        assertEquals(1, this.service.getColdShelf().size(), "");
+        assertTrue(Objects.equals(coldTempOrder, this.service.getColdShelf().take()));
     }
 
     @Test
@@ -100,7 +98,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
 
-        assertEquals(1, this.service.getHotShelf().size(), "");
+        assertTrue(Objects.equals(hotTempOrder, this.service.getHotShelf().take()));
     }
 
     @Test
@@ -108,7 +106,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
 
-        assertEquals(1, this.service.getFrozenShelf().size(), "");
+        assertTrue(Objects.equals(frozenTempOrder, this.service.getFrozenShelf().take()));
     }
 
     @Test
@@ -117,9 +115,9 @@ public class ShelfServiceTests {
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
         this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
         this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
-        this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
+        this.service.allocateOrderInAppropriateShelf(this.hotTempOrder2);
 
-        assertEquals(1, this.service.getOverflowShelf().size(), "");
+        assertTrue(Objects.equals(hotTempOrder2, this.service.getOverflowShelf().take()));
     }
 
     @Test
@@ -131,6 +129,8 @@ public class ShelfServiceTests {
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder2);
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder3);
 
+        assertTrue(Objects.equals(coldTempOrder, this.service.getColdShelf().take()));
+        assertTrue(Objects.equals(frozenTempOrder, this.service.getFrozenShelf().take()));
         assertTrue(Objects.equals(hotTempOrder2, this.service.getHotShelf().take()));
         assertTrue(Objects.equals(hotTempOrder3, this.service.getOverflowShelf().take()));
     }
