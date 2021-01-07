@@ -23,7 +23,6 @@ import java.util.UUID;
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 public class OrderServiceTests {
-
     private List<Order> orders;
 
     @MockBean
@@ -37,7 +36,6 @@ public class OrderServiceTests {
 
     @BeforeEach
     public void setup() {
-
         Order bananaSplitOrder = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("a8cfcb76-7f24-4420-a5ba-d46dd77bdffd"))
                 .with(Order::setCreateDate, LocalDateTime.now())

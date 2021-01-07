@@ -1,33 +1,32 @@
 package br.com.italo.santana.challenge.prompt.services.shelves;
 
-import br.com.italo.santana.challenge.prompt.configs.AppProperties;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import br.com.italo.santana.challenge.prompt.domain.Order;
+import br.com.italo.santana.challenge.prompt.producers.Producer;
 import br.com.italo.santana.challenge.prompt.util.GenericBuilderUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(SpringExtension.class)
 public class ShelfServiceTests {
+    private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
+    private Order coldTempOrder, hotTempOrder, frozenTempOrder;
+    private Producer producer;
 
-    Order coldTempOrder, hotTempOrder, frozenTempOrder;
-
-    @MockBean
     private ShelfServiceImpl service;
-
-    @Mock
-    private AppProperties appProperties;
 
     @BeforeEach
     public void setup() {
-
+        this.service = new ShelfServiceImpl();
         this.frozenTempOrder = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
                 .with(Order::setCreateDate, LocalDateTime.now())
@@ -54,25 +53,51 @@ public class ShelfServiceTests {
                 .with(Order::setShelfLife, 203)
                 .with(Order::setDecayRate, 0.3)
                 .build();
+
+        this.coldShelf = new LinkedBlockingQueue<>(1);
+        this.hotShelf = new LinkedBlockingQueue<>(1);
+        this.frozenShelf = new LinkedBlockingQueue<>(1);
+        this.overflowShelf = new LinkedBlockingQueue<>(1);
+        this.producer = new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf);
+        this.service.setColdShelf(this.coldShelf);
+        this.service.setHotShelf(this.hotShelf);
+        this.service.setFrozenShelf(this.frozenShelf);
+        this.service.setOverflowShelf(this.overflowShelf);
+        this.service.setProducer(this.producer);
     }
 
     @Test
-    public void shouldAllocateOrderInColdShelf() {
+    public void shouldAllocateOrderInColdShelf() throws InterruptedException {
 
+        this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
+
+        assertEquals(1, this.service.getColdShelf().size(), "");
     }
 
     @Test
-    public void shouldAllocateOrderInHotShelf() {
+    public void shouldAllocateOrderInHotShelf() throws InterruptedException {
 
+        this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
+
+        assertEquals(1, this.service.getHotShelf().size(), "");
     }
 
     @Test
-    public void shouldAllocateOrderInFrozenShelf() {
+    public void shouldAllocateOrderInFrozenShelf() throws InterruptedException {
 
+        this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
+
+        assertEquals(1, this.service.getFrozenShelf().size(), "");
     }
 
     @Test
-    public void shouldAllocateOrderInOverflowShelf() {
+    public void shouldAllocateOrderInOverflowShelf() throws InterruptedException {
 
+        this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
+        this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
+        this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
+        this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
+
+        assertEquals(1, this.service.getOverflowShelf().size(), "");
     }
 }

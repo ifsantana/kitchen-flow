@@ -16,16 +16,21 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Service
 public class ShelfServiceImpl implements ShelfService {
+    private AppProperties appProperties;
     private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
     private Producer producer;
 
+    public ShelfServiceImpl() {
+    }
+
     @Autowired
     public ShelfServiceImpl(AppProperties appProperties) {
-        this.coldShelf = new LinkedBlockingQueue<>(appProperties.getColdShelfCapacity());
-        this.hotShelf = new LinkedBlockingQueue<>(appProperties.getHotShelfCapacity());
-        this.frozenShelf = new LinkedBlockingQueue<>(appProperties.getFrozenShelfCapacity());
-        this.overflowShelf = new LinkedBlockingQueue<>(appProperties.getOverflowShelfCapacity());
-        this.producer = new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf);
+        this.appProperties = appProperties;
+        this.setColdShelf(new LinkedBlockingQueue<>(this.appProperties.getColdShelfCapacity()));
+        this.setHotShelf(new LinkedBlockingQueue<>(this.appProperties.getHotShelfCapacity()));
+        this.setFrozenShelf(new LinkedBlockingQueue<>(this.appProperties.getFrozenShelfCapacity()));
+        this.setOverflowShelf(new LinkedBlockingQueue<>(this.appProperties.getOverflowShelfCapacity()));
+        this.setProducer(new Producer(this.coldShelf, this.hotShelf, this.frozenShelf, this.overflowShelf));
     }
 
     public void allocateOrderInAppropriateShelf(Order order) throws InterruptedException {
@@ -67,15 +72,39 @@ public class ShelfServiceImpl implements ShelfService {
         return this.coldShelf;
     }
 
+    public void setColdShelf(BlockingQueue<Order> coldShelf) {
+        this.coldShelf = coldShelf;
+    }
+
     public BlockingQueue<Order> getHotShelf() {
         return this.hotShelf;
+    }
+
+    public void setHotShelf(BlockingQueue<Order> hotShelf) {
+        this.hotShelf = hotShelf;
     }
 
     public BlockingQueue<Order> getFrozenShelf() {
         return this.frozenShelf;
     }
 
+    public void setFrozenShelf(BlockingQueue<Order> frozenShelf) {
+        this.frozenShelf = frozenShelf;
+    }
+
     public BlockingQueue<Order> getOverflowShelf() {
         return this.overflowShelf;
+    }
+
+    public void setOverflowShelf(BlockingQueue<Order> overflowShelf) {
+        this.overflowShelf = overflowShelf;
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 }
