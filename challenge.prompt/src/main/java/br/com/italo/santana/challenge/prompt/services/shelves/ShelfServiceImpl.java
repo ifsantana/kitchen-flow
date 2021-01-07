@@ -44,7 +44,7 @@ public class ShelfServiceImpl implements ShelfService {
             if(!tryToAllocateInOverflowShelf(order)) {
                 Order movedOrder = overflowShelf.take();
 
-                if(tryToReAllocateToARegularShelf(movedOrder)) {
+                if(!tryToAllocateInRegularShelf(movedOrder)) {
                     PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, movedOrder,
                             hotShelf, coldShelf, frozenShelf, overflowShelf);
                     tryToAllocateInOverflowShelf(order);
@@ -61,24 +61,6 @@ public class ShelfServiceImpl implements ShelfService {
             return this.producer.putOrderOnColdShelf(order);
         } else if(order.getTemp().equalsIgnoreCase("frozen") && frozenShelf.remainingCapacity() > 0) {
             return this.producer.putOrderOnFrozenShelf(order);
-        } else {
-            return false;
-        }
-    }
-
-    public boolean tryToReAllocateToARegularShelf(Order order) {
-
-        if(!tryToAllocateInRegularShelf(order)) {
-            if(order.getTemp().equalsIgnoreCase("hot")) {
-                this.hotShelf.poll();
-                return this.producer.putOrderOnHotShelf(order);
-            } else if(order.getTemp().equalsIgnoreCase("cold")) {
-                this.coldShelf.poll();
-                return this.producer.putOrderOnColdShelf(order);
-            } else {
-                this.frozenShelf.poll();
-                return this.producer.putOrderOnFrozenShelf(order);
-            }
         } else {
             return false;
         }

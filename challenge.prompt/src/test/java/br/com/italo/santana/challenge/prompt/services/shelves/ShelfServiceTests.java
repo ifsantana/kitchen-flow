@@ -131,7 +131,7 @@ public class ShelfServiceTests {
 
         assertTrue(Objects.equals(coldTempOrder, this.service.getColdShelf().take()));
         assertTrue(Objects.equals(frozenTempOrder, this.service.getFrozenShelf().take()));
-        assertTrue(Objects.equals(hotTempOrder2, this.service.getHotShelf().take()));
+        assertTrue(Objects.equals(hotTempOrder, this.service.getHotShelf().take()));
         assertTrue(Objects.equals(hotTempOrder3, this.service.getOverflowShelf().take()));
     }
 }
