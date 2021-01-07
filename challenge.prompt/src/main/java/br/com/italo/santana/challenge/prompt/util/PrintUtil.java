@@ -18,7 +18,7 @@ public class PrintUtil {
         StringBuilder event = new StringBuilder("{ event_type: ")
                 .append(eventDescription)
                 .append(", current_order: ")
-                .append(JsonParserUtil.toJson(order))
+                .append(order.toString())
                 .append(", hotShelf: " )
                 .append(hotShelf)
                 .append(", coldShelf: ")

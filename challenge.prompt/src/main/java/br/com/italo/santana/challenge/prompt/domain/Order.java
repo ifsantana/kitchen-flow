@@ -1,6 +1,8 @@
 package br.com.italo.santana.challenge.prompt.domain;
 
 import br.com.italo.santana.challenge.prompt.util.DateTimeUtil;
+import br.com.italo.santana.challenge.prompt.util.JsonParserUtil;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -113,6 +115,10 @@ public class Order {
     }
 
     public void setShelfLifeValue(double shelfLifeValue) { this.shelfLifeValue = Objects.requireNonNull(shelfLifeValue, "shelfLifeValue must not be null!!!"); }
+
+    public String toString() {
+        return JsonParserUtil.toJson(this);
+    }
 
     /**
      * This method checks and returns whether the order is valid (should be collected to delivery) or is not valid (should be discarded).
