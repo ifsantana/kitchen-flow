@@ -28,6 +28,8 @@ public interface ShelfService {
      */
     boolean tryToAllocateInRegularShelf(Order order);
 
+    boolean tryToReAllocateToARegularShelf(Order order);
+
     /**
      * Tries to allocate order in overflow shelf.
      * @param order

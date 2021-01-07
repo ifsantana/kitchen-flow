@@ -2,8 +2,12 @@ package br.com.italo.santana.challenge.prompt.services.shelves;
 
 import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
+import br.com.italo.santana.challenge.prompt.enums.EventType;
 import br.com.italo.santana.challenge.prompt.producers.Producer;
 import br.com.italo.santana.challenge.prompt.interfaces.shelves.ShelfService;
+import br.com.italo.santana.challenge.prompt.util.PrintUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.BlockingQueue;
@@ -16,6 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 @Service
 public class ShelfServiceImpl implements ShelfService {
+    private static final Logger LOG = LoggerFactory.getLogger(ShelfServiceImpl.class.getSimpleName());
     private AppProperties appProperties;
     private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
     private Producer producer;
@@ -39,8 +44,10 @@ public class ShelfServiceImpl implements ShelfService {
             if(!tryToAllocateInOverflowShelf(order)) {
                 Order movedOrder = overflowShelf.take();
 
-                if(!tryToAllocateInRegularShelf(movedOrder)) {
-                    tryToAllocateInOverflowShelf(movedOrder);
+                if(tryToReAllocateToARegularShelf(movedOrder)) {
+                    PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, movedOrder,
+                            hotShelf, coldShelf, frozenShelf, overflowShelf);
+                    tryToAllocateInOverflowShelf(order);
                 }
             }
         }
@@ -54,6 +61,24 @@ public class ShelfServiceImpl implements ShelfService {
             return this.producer.putOrderOnColdShelf(order);
         } else if(order.getTemp().equalsIgnoreCase("frozen") && frozenShelf.remainingCapacity() > 0) {
             return this.producer.putOrderOnFrozenShelf(order);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean tryToReAllocateToARegularShelf(Order order) {
+
+        if(!tryToAllocateInRegularShelf(order)) {
+            if(order.getTemp().equalsIgnoreCase("hot")) {
+                this.hotShelf.poll();
+                return this.producer.putOrderOnHotShelf(order);
+            } else if(order.getTemp().equalsIgnoreCase("cold")) {
+                this.coldShelf.poll();
+                return this.producer.putOrderOnColdShelf(order);
+            } else {
+                this.frozenShelf.poll();
+                return this.producer.putOrderOnFrozenShelf(order);
+            }
         } else {
             return false;
         }
