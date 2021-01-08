@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OrderTests {
 
     private Order exampleOrderValidToDelivery, exampleOrderNotValidToDelivery;
+    private final Integer REGULAR_SHELF_DECAY_MODIFIER = 1;
+    private final Integer OVERFLOW_SHELF_DECAY_MODIFIER = 2;
 
     @BeforeEach
     public void setup() {
@@ -24,7 +26,7 @@ public class OrderTests {
                 .with(Order::setDecayRate, 0.63)
                 .build();
 
-        this.exampleOrderValidToDelivery.isValidValidForDelivery(1);
+        this.exampleOrderValidToDelivery.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER);
 
         this.exampleOrderNotValidToDelivery = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
@@ -34,8 +36,6 @@ public class OrderTests {
                 .with(Order::setShelfLife, 0)
                 .with(Order::setDecayRate, 0.4)
                 .build();
-
-        this.exampleOrderNotValidToDelivery.isValidValidForDelivery(2);
     }
 
     @Test
@@ -64,11 +64,11 @@ public class OrderTests {
 
     @Test
     public void shouldReturnThatOrderIsValidToDelivery() {
-        assertTrue(exampleOrderValidToDelivery.isValidValidForDelivery(1));
+        assertTrue(exampleOrderValidToDelivery.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER));
     }
 
     @Test
     public void shouldReturnThatOrderIsNotValidToDelivery() {
-        assertFalse(exampleOrderNotValidToDelivery.isValidValidForDelivery(2));
+        assertFalse(exampleOrderNotValidToDelivery.isValidValidForDelivery(OVERFLOW_SHELF_DECAY_MODIFIER));
     }
 }
