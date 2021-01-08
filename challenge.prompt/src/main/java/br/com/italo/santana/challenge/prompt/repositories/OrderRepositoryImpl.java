@@ -23,11 +23,9 @@ import java.util.List;
 @Service
 public class OrderRepositoryImpl implements OrderRepository {
     private AppProperties appProperties;
-    private Gson gson;
 
     @Autowired
     public OrderRepositoryImpl(AppProperties appProperties) {
-        this.gson = new Gson();
         this.appProperties = appProperties;
     }
 
