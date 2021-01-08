@@ -1,4 +1,4 @@
-# kitchen-flow
+# kitchen-flow - the css challenge
 
 ## How to run application
 
