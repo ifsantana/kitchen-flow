@@ -1,6 +1,6 @@
 package br.com.italo.santana.challenge.prompt.services.shelves;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.domain.Order;
@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
@@ -82,7 +81,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
 
-        assertTrue(Objects.equals(coldTempOrder, this.service.getColdShelf().take()));
+        assertEquals(coldTempOrder, this.service.getColdShelf().take());
     }
 
     @Test
@@ -90,7 +89,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder);
 
-        assertTrue(Objects.equals(hotTempOrder, this.service.getHotShelf().take()));
+        assertEquals(hotTempOrder, this.service.getHotShelf().take());
     }
 
     @Test
@@ -98,7 +97,7 @@ public class ShelfServiceTests {
 
         this.service.allocateOrderInAppropriateShelf(this.frozenTempOrder);
 
-        assertTrue(Objects.equals(frozenTempOrder, this.service.getFrozenShelf().take()));
+        assertEquals(frozenTempOrder, this.service.getFrozenShelf().take());
     }
 
     @Test
@@ -109,7 +108,7 @@ public class ShelfServiceTests {
         this.service.allocateOrderInAppropriateShelf(this.coldTempOrder);
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder2);
 
-        assertTrue(Objects.equals(hotTempOrder2, this.service.getOverflowShelf().take()));
+        assertEquals(hotTempOrder2, this.service.getOverflowShelf().take());
     }
 
     @Test
@@ -121,9 +120,9 @@ public class ShelfServiceTests {
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder2);
         this.service.allocateOrderInAppropriateShelf(this.hotTempOrder3);
 
-        assertTrue(Objects.equals(coldTempOrder, this.service.getColdShelf().take()));
-        assertTrue(Objects.equals(frozenTempOrder, this.service.getFrozenShelf().take()));
-        assertTrue(Objects.equals(hotTempOrder, this.service.getHotShelf().take()));
-        assertTrue(Objects.equals(hotTempOrder3, this.service.getOverflowShelf().take()));
+        assertEquals(coldTempOrder, this.service.getColdShelf().take());
+        assertEquals(frozenTempOrder, this.service.getFrozenShelf().take());
+        assertEquals(hotTempOrder, this.service.getHotShelf().take());
+        assertEquals(hotTempOrder3, this.service.getOverflowShelf().take());
     }
 }
