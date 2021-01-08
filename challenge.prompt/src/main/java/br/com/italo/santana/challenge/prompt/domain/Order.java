@@ -126,6 +126,7 @@ public class Order {
      * @return
      */
     public boolean isValidValidForDelivery(int shelfDecayModifier) {
+
         long orderAge = DateTimeUtil.calculateAgeInSeconds(this.getCreateDate(), LocalDateTime.now());
 
         this.setShelfLifeValue(calculateShelfLifeValue(orderAge, shelfDecayModifier));
