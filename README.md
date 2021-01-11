@@ -175,9 +175,7 @@ Example: For processing data extracted from the file, I used the OrderService in
 
 Common utilities layer.
 
-References:
-
-Reference:
+## References:
 
 ### Producer Consumer Problem
 
@@ -186,4 +184,8 @@ https://en.wikipedia.org/wiki/Producer–consumer_problem
 ### Producer Consumer Design Pattern with Blocking Queue Example in Java
 
 https://javarevisited.blogspot.com/2012/02/producer-consumer-design-pattern-with.html
+
+### Guide to the Fork/Join Framework in Java
+
+https://www.baeldung.com/java-fork-join
 
