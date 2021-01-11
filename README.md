@@ -68,11 +68,38 @@ value = (s​helfLife​ - ​decayRate *​​​ orderAge * shelfDecayModifier
 Important: shelfDecayModifier​ is 1​ ​forsingle-temperature shelves and ​2​ for the overflow shelf.
 
 
-## Problem Solution
+## Problem / Solution
+
+* Problem
 
 Producer/Consumer Problem
 
-blablabla
+
+* Solution
+
+The benefit of the Producer-Consumer Pattern
+
+Its indeed a useful design pattern and used most commonly while writing multi-threaded or concurrent code. here
+is few of its benefit:
+
+1) Producer Consumer Pattern simple development. you can Code Producer and Consumer independently and Concurrently, they just need to know shared object.
+
+2) Producer doesn't need to know about who is consumer or how many consumers are there. Same is true with Consumer.
+
+3) Producer and Consumer can work with different speed. There is no risk of Consumer consuming half-baked item.
+In fact by monitoring consumer speed one can introduce more consumer for better utilization.
+
+4) Separating producer and Consumer functionality result in more clean, readable and manageable code.
+
+Producer-Consumer Problem in Multi-threading
+
+Producer-Consumer Problem is also a popular java interview question where interviewer ask to implement producer consumer design pattern so that Producer should wait if Queue or bucket is full and Consumer should wait if queue orbucket is empty. This problem can be implemented or solved by different ways in Java, classical way is using wait and notify method to communicate between Producer and Consumer thread and blocking each of them on individual condition like full queue and empty queue. 
+
+With the introduction of BlockingQueue Data Structure in Java 5 Its now much simpler because BlockingQueue provides this control implicitly by introducing blocking methods put() and take(). 
+
+Now you don't require to use wait and notify to communicate between Producer and Consumer. 
+
+In this challenge I've use BlockingQueue offer() methods will block if Queue is full in case of Bounded Queue and pool() will block if Queue is empty. 
 
 ## Design, Architecture and Application Structure
 
@@ -100,7 +127,7 @@ In this project I've use the ForkJoin thread Pool to manage the orders paralleli
 
 * Application
 
-Layer responsible for the starts the application. 
+Layer responsible for starts the application. 
 
 * Configs
 
