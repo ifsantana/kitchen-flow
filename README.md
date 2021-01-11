@@ -61,9 +61,9 @@ Orders that have reached a value of zero are considered wasted: they should neve
 Please display the current order value when displaying an order in your system’s output.
 
 value =
-(s​helfLife​ - ​decayRate *​​​ orderAge * shelfDecayModifier)​
-shelfLife
-   shelfDecayModifier​is1​ ​forsingle - temperatureshelvesand​2​fortheoverflowshelf.
+(s​helfLife​ - ​decayRate *​​​ orderAge * shelfDecayModifier)​ / shelfLife
+   
+ shelfDecayModifier​ is 1​ ​forsingle-temperature shelves and ​2​ for the overflow shelf.
 
 
 ## Problem Solution
