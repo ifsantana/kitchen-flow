@@ -74,29 +74,61 @@ Producer/Consumer Problem
 
 blablabla
 
+## Design, Architecture and Application Structure
+
+Domain-Driven Design
+
+Design Patterns
+
+SOLID Principles
+
 ## Application Layers
 
 * Application
 
+Layer responsible for the starts the application. 
+
 * Configs
+
+Layer responsible for bind application configs/properties dynamically.
 
 * Consumers
 
 * Domain
 
+The domain layer is the most complex of the application, since it had abstraction of all the entities raised in the proposed problem.
+
+Here are all entities in the application domain, their methods and behaviors.
+
 * Enums
+
+Enumeration classes layer.
 
 * Factories
 
+Layer responsible for factory pattern implementations.
+
 * Interfaces
+
+Abstraction contracts layer. 
 
 * Producers
 
 * Repositories
 
+Here we have all interfaces/contracts to be implemented for access/persistence of the appropriate data sources.
+
+Example: To read the data file I used the OrderRepository interface, implemented in the repositories layer by the OrderServiceImpl.class.
+
 * Services
 
+Here we have all interfaces/contracts to be implemented for processing and business rules.
+
+Example: For processing data extracted from the file, I used the OrderService interface, which implements the processOrders() method by the OrderServiceImpl.class.
+
 * Util
+
+Common utilities layer.
 
 
 
