@@ -50,8 +50,11 @@ The following table details the kitchen’s shelves:
 Name             Allowable Temperatures    Capacity
 
 Hot shelf        hot                       10
+
 Cold shelf       cold                      10
+
 Frozen shelf     frozen                    10
+
 Overflow shelf   any temperature           15
 
 Shelf Life
@@ -60,10 +63,9 @@ Orders have an inherent value that will deteriorate over time, based on the orde
 Orders that have reached a value of zero are considered wasted: they should never be delivered and should be removed from the shelf. 
 Please display the current order value when displaying an order in your system’s output.
 
-value =
-(s​helfLife​ - ​decayRate *​​​ orderAge * shelfDecayModifier)​ / shelfLife
+value = (s​helfLife​ - ​decayRate *​​​ orderAge * shelfDecayModifier)​ / shelfLife
    
- shelfDecayModifier​ is 1​ ​forsingle-temperature shelves and ​2​ for the overflow shelf.
+Important: shelfDecayModifier​ is 1​ ​forsingle-temperature shelves and ​2​ for the overflow shelf.
 
 
 ## Problem Solution
