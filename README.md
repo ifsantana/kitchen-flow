@@ -76,11 +76,25 @@ blablabla
 
 ## Design, Architecture and Application Structure
 
-Domain-Driven Design
+* Domain-Driven Design
 
-Design Patterns
+* Design Patterns
 
-SOLID Principles
+* SOLID Principles
+
+* ForkJoin Thread Pool
+
+The ForkJoinPool is the heart of the ForkJoin framework. 
+
+It is an implementation of the ExecutorService that manages worker threads and provides us with tools to get information about the thread pool state and performance.
+
+Worker threads can execute only one task at a time, but the ForkJoinPool doesn’t create a separate thread for every single subtask. 
+
+Instead, each thread in the pool has its own double-ended queue (or deque, pronounced deck) which stores tasks.
+
+This architecture is vital for balancing the thread’s workload with the help of the work-stealing algorithm.
+
+In this project I've use the ForkJoin thread Pool to manage the orders parallelism threshold in a custom thread pool just to processing a give number of orders in a give time space.
 
 ## Application Layers
 
