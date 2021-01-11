@@ -1,19 +1,27 @@
 package br.com.italo.santana.challenge.prompt.domain;
 
 
+import br.com.italo.santana.challenge.prompt.configs.AppProperties;
 import br.com.italo.santana.challenge.prompt.util.GenericBuilderUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@EnableConfigurationProperties(value = AppProperties.class)
+@TestPropertySource("classpath:application.properties")
 public class OrderTests {
 
+    @Autowired
+    private AppProperties appProperties;
     private Order exampleOrderValidToDelivery, exampleOrderNotValidToDelivery;
-    private final Integer REGULAR_SHELF_DECAY_MODIFIER = 1;
-    private final Integer OVERFLOW_SHELF_DECAY_MODIFIER = 2;
 
     @BeforeEach
     public void setup() {
@@ -26,7 +34,7 @@ public class OrderTests {
                 .with(Order::setDecayRate, 0.63)
                 .build();
 
-        this.exampleOrderValidToDelivery.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER);
+        this.exampleOrderValidToDelivery.isValidValidForDelivery(this.appProperties.getRegularShelfDecayModifier());
 
         this.exampleOrderNotValidToDelivery = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
@@ -38,6 +46,9 @@ public class OrderTests {
                 .build();
     }
 
+    /**
+     * This method tests the constructor with parameters
+     */
     @Test
     public void shouldReturnOrderEqualsSetupOrder() {
         Order order = new Order(exampleOrderValidToDelivery.getId(), exampleOrderValidToDelivery.getName(),
@@ -55,6 +66,9 @@ public class OrderTests {
         assertEquals(order.getShelfLifeValue(), exampleOrderValidToDelivery.getShelfLifeValue(), new StringBuilder("Must be ").append(exampleOrderValidToDelivery.getShelfLifeValue()).toString());
     }
 
+    /**
+     * This method tests the default constructor parameters
+     */
     @Test
     public void shouldReturnAOrderWithCreateDate() {
         Order order = new Order();
@@ -62,13 +76,16 @@ public class OrderTests {
         assertNotNull(order.getCreateDate());
     }
 
+    /**
+     *
+     */
     @Test
     public void shouldReturnThatOrderIsValidToDelivery() {
-        assertTrue(exampleOrderValidToDelivery.isValidValidForDelivery(REGULAR_SHELF_DECAY_MODIFIER));
+        assertTrue(exampleOrderValidToDelivery.isValidValidForDelivery(this.appProperties.getRegularShelfDecayModifier()));
     }
 
     @Test
     public void shouldReturnThatOrderIsNotValidToDelivery() {
-        assertFalse(exampleOrderNotValidToDelivery.isValidValidForDelivery(OVERFLOW_SHELF_DECAY_MODIFIER));
+        assertFalse(exampleOrderNotValidToDelivery.isValidValidForDelivery(this.appProperties.getOverflowShelfDecayModifier()));
     }
 }
