@@ -77,12 +77,16 @@ Producer/Consumer Problem
 
 * Solution
 
-The benefit of the Producer-Consumer Pattern
+Producer-Consumer Pattern
 
-Its indeed a useful design pattern and used most commonly while writing multi-threaded or concurrent code. here
+Producer consumer pattern is everywhere in real life and depicts coordination and collaboration. Like one person is preparing food (Producer) while the other one is serving food (Consumer), both will use a shared table for putting food plates and taking food plates. 
+
+The producer which is the person preparing food will wait if the table is full and Consumer (Person who is serving food) will wait if the table is empty. the table is a shared object here. On Java library, the Executor framework itself implement Producer Consumer design pattern be separating responsibility of addition and execution of the task.
+
+It's indeed a useful design pattern and used most commonly while writing multi-threaded or concurrent code. here
 is few of its benefit:
 
-1) Producer Consumer Pattern simple development. you can Code Producer and Consumer independently and Concurrently, they just need to know shared object.
+1) Producer Consumer Pattern simple development. you can Code Producer and Consumer independently and Concurrently, they just need to know shared objects.
 
 2) Producer doesn't need to know about who is consumer or how many consumers are there. Same is true with Consumer.
 
@@ -171,8 +175,15 @@ Example: For processing data extracted from the file, I used the OrderService in
 
 Common utilities layer.
 
+References:
 
+Reference:
 
+### Producer Consumer Problem
 
+https://en.wikipedia.org/wiki/Producer–consumer_problem
 
+### Producer Consumer Design Pattern with Blocking Queue Example in Java
+
+https://javarevisited.blogspot.com/2012/02/producer-consumer-design-pattern-with.html
 
