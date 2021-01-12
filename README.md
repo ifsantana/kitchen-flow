@@ -130,7 +130,7 @@ With the introduction of BlockingQueue Data Structure in Java 5 Its now much sim
 
 Now you don't require to use wait and notify to communicate between Producer and Consumer. 
 
-In this challenge I've use BlockingQueue offer() methods will block if Queue is full in case of Bounded Queue and pool() will block if Queue is empty.
+In this challenge I've use BlockingQueue offer() method will block if Queue is full in case of Bounded Queue and pool() method will block if Queue is empty.
 
 * How and why I chose to handle moving orders to and from the overflow shelf
 
