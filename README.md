@@ -147,7 +147,7 @@ Layer responsible for starts the application.
 
 * Configs
 
-Layer responsible for bind application configs/properties dynamically.
+Layer responsible for bind application configs/properties dynamically from application.properties file.
 
 * Consumers
 
