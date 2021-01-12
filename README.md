@@ -2,11 +2,17 @@
 
 ## How to run application
 
-blablabla
+* CLI
+
+mvn package
+mvn install
+mvn springboot:run
 
 ## How to run tests
 
-blablabla
+* CLI
+
+mvn test
 
 ## Problem Description
 

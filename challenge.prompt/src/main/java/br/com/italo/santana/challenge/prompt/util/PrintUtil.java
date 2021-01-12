@@ -27,7 +27,8 @@ public class PrintUtil {
                 .append(frozenShelf)
                 .append(", overflowShelf: ")
                 .append(overflowShelf)
-                .append(" }");
+                .append(" }")
+                .append(System.lineSeparator());
 
         logger.info("{}", JsonParserUtil.prettyJson(event.toString()));
     }
