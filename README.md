@@ -2,6 +2,24 @@
 
 ## How to run application
 
+* InteliJ Idea
+
+1) Menu -> Run -> Edit Configurations...
+
+2) Click in "+" button and Add New Configuration with type "Application"
+
+3) Set "Name": run
+
+4) Set "Main Class": br.com.italo.santana.challenge.prompt.Application
+
+5) Set "Use class module": challenge.prompt
+
+6) Use JRE 8 or 10
+
+7) Click on "Apply" to save changes
+
+8) Select "run" configuration and click on "run" button
+
 * CLI
 
 mvn package
