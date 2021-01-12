@@ -2,7 +2,7 @@
 
 ## How to run application
 
-* InteliJ Idea
+* IDE - IntelliJ Idea
 
 1) Menu -> Run -> Edit Configurations...
 
@@ -20,17 +20,21 @@
 
 8) Select "run" configuration and click on "run" button
 
-* CLI
-
-mvn package
-mvn install
-mvn springboot:run
-
 ## How to run tests
 
-* CLI
+* IDE - IntelliJ Idea
 
-mvn test
+1) Menu -> Run -> Edit Configurations...
+
+2) Click in "+" button and Add New Configuration with type "JUnit"
+
+3) Set "Name": run all tests
+
+4) Set "Test Kind": All in package
+
+5) Click on "Apply" to save changes
+
+6) Select "run all tests" configuration and click on "run" button
 
 ## Problem Description
 
