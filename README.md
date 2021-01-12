@@ -6,7 +6,7 @@
 
 1) Menu -> Run -> Edit Configurations...
 
-2) Click in "+" button and Add New Configuration with type "Application"
+2) Click in "+" button and Add New Configuration -> "Application" type
 
 3) Set "Name": run
 
@@ -26,7 +26,7 @@
 
 1) Menu -> Run -> Edit Configurations...
 
-2) Click in "+" button and Add New Configuration with type "JUnit"
+2) Click in "+" button and Add New Configuration -> "JUnit" type
 
 3) Set "Name": run all tests
 
