@@ -32,9 +32,8 @@ public class OrderTests {
                 .with(Order::setTemp, "frozen")
                 .with(Order::setShelfLife, 20)
                 .with(Order::setDecayRate, 0.63)
+                .with(Order::isValidToDelivery, this.appProperties.getRegularShelfDecayModifier())
                 .build();
-
-        this.exampleOrderValidToDelivery.isValidToDelivery(this.appProperties.getRegularShelfDecayModifier());
 
         this.exampleOrderNotValidToDelivery = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
@@ -76,9 +75,6 @@ public class OrderTests {
         assertNotNull(order.getCreateDate());
     }
 
-    /**
-     *
-     */
     @Test
     public void shouldReturnThatOrderIsValidToDelivery() {
         assertTrue(exampleOrderValidToDelivery.isValidToDelivery(this.appProperties.getRegularShelfDecayModifier()));
