@@ -191,6 +191,11 @@ Example: For processing data extracted from the file, I used the OrderService in
 
 Common utilities layer.
 
+* Unit Tests
+
+Due to time constraints due to the high demand in my current position, in the development of unit tests I've prioritized only the main flows.
+
+
 ## References:
 
 1) Producer Consumer Problem - https://en.wikipedia.org/wiki/Producer–consumer_problem
