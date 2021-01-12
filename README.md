@@ -70,11 +70,11 @@ Important: shelfDecayModifier is 1 for single-temperature shelves and 2 for the 
 
 ## Problem / Solution
 
-* Problem
+### Problem
 
 Producer/Consumer Problem [1]
 
-* Solution
+### Solution
 
 Producer-Consumer Pattern [2]
 
