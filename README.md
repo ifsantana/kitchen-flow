@@ -104,7 +104,7 @@ Now you don't require to use wait and notify to communicate between Producer and
 
 In this challenge I've use BlockingQueue offer() methods will block if Queue is full in case of Bounded Queue and pool() will block if Queue is empty.
 
-* How and why I chose to handle moving orders to and from the overflow shelf
+## How and why I chose to handle moving orders to and from the overflow shelf
 
 Each order should be placed on a shelf that matches the order’s temperature.
 If that shelf is full, an order can be placed on the overflow shelf.

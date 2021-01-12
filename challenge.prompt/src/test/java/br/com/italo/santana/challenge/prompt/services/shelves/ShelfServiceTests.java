@@ -76,6 +76,10 @@ public class ShelfServiceTests {
                 .build();
     }
 
+    /**
+     * Each order should be placed on a shelf that matches the order’s temperature.
+     * @throws InterruptedException
+     */
     @Test
     public void shouldAllocateOrderInColdShelf() throws InterruptedException {
 
@@ -84,6 +88,10 @@ public class ShelfServiceTests {
         assertEquals(coldTempOrder, this.service.getColdShelf().take());
     }
 
+    /**
+     * Each order should be placed on a shelf that matches the order’s temperature.
+     * @throws InterruptedException
+     */
     @Test
     public void shouldAllocateOrderInHotShelf() throws InterruptedException {
 
@@ -92,6 +100,10 @@ public class ShelfServiceTests {
         assertEquals(hotTempOrder, this.service.getHotShelf().take());
     }
 
+    /**
+     * Each order should be placed on a shelf that matches the order’s temperature.
+     * @throws InterruptedException
+     */
     @Test
     public void shouldAllocateOrderInFrozenShelf() throws InterruptedException {
 
@@ -100,6 +112,10 @@ public class ShelfServiceTests {
         assertEquals(frozenTempOrder, this.service.getFrozenShelf().take());
     }
 
+    /**
+     * If that shelf is full, an order can be placed on the overflow shelf.
+     * @throws InterruptedException
+     */
     @Test
     public void shouldAllocateOrderInOverflowShelf() throws InterruptedException {
 
@@ -111,6 +127,13 @@ public class ShelfServiceTests {
         assertEquals(hotTempOrder2, this.service.getOverflowShelf().take());
     }
 
+    /**
+     * Each order should be placed on a shelf that matches the order’s temperature.
+     * If that shelf is full, an order can be placed on the overflow shelf.
+     * If no such move is possible, a random order from the overflow shelf should be discarded as waste (will not be available for a courier pickup)
+     * If the overflow shelf is full, an existing order of your choosing on the overflow should be moved to an allowable shelf with room and the current order must be placed on the overflow shelf replacing the previously discarded order.
+     * @throws InterruptedException
+     */
     @Test
     public void shouldTryToReAllocateOrderInRegularShelf() throws InterruptedException {
 
