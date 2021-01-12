@@ -72,12 +72,11 @@ Important: shelfDecayModifier is 1 for single-temperature shelves and 2 for the 
 
 * Problem
 
-Producer/Consumer Problem
-
+Producer/Consumer Problem [1]
 
 * Solution
 
-Producer-Consumer Pattern
+Producer-Consumer Pattern [2]
 
 Producer consumer pattern is everywhere in real life and depicts coordination and collaboration. Like one person is preparing food (Producer) while the other one is serving food (Consumer), both will use a shared table for putting food plates and taking food plates. 
 
@@ -122,11 +121,11 @@ I also tried to use ubiquitous language as much as possible.
 
 * Design Patterns
 
-Factory, Generic Builder, Repository ...
+Factory, Generic Builder, Repository, Producer-Consumer...
 
 * SOLID Principles
 
-* ForkJoin Thread Pool
+* ForkJoin Thread Pool [3]
 
 The ForkJoinPool is the heart of the ForkJoin framework. 
 
@@ -152,6 +151,8 @@ Layer responsible for bind application configs/properties dynamically.
 
 * Consumers
 
+Layer responsible to abstract Consumers of the Producer-Consumer Pattern.
+
 * Domain
 
 The domain layer is the most complex of the application, since it had abstraction of all the entities raised in the proposed problem.
@@ -172,6 +173,8 @@ Abstraction contracts layer.
 
 * Producers
 
+Layer responsible to abstract Producers of the Producer-Consumer Pattern.
+
 * Repositories
 
 Here we have all interfaces/contracts to be implemented for access/persistence of the appropriate data sources.
@@ -190,15 +193,9 @@ Common utilities layer.
 
 ## References:
 
-### Producer Consumer Problem
+1) Producer Consumer Problem - https://en.wikipedia.org/wiki/Producer–consumer_problem
 
-https://en.wikipedia.org/wiki/Producer–consumer_problem
+2) Producer Consumer Design Pattern with Blocking Queue Example in Java - https://javarevisited.blogspot.com/2012/02/producer-consumer-design-pattern-with.html
 
-### Producer Consumer Design Pattern with Blocking Queue Example in Java
-
-https://javarevisited.blogspot.com/2012/02/producer-consumer-design-pattern-with.html
-
-### Guide to the Fork/Join Framework in Java
-
-https://www.baeldung.com/java-fork-join
+3) Guide to the Fork/Join Framework in Java - https://www.baeldung.com/java-fork-join
 
