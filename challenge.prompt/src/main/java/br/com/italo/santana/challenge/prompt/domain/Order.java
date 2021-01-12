@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Entity that represents a client Order.
+ * Entity that represents an Order.
  *
  * @author italosantana
  */
@@ -25,27 +25,28 @@ public class Order {
     private String name;
 
     /**
-     * order item ideal temperature.
+     * Preferred shelf storage temperature
      */
     private String temp;
 
     /**
-     * order item lifetime in shelf
+     * Shelf wait max duration (seconds)
      */
     private int shelfLife;
 
     /**
-     * order item decay rate
+     * Value deterioration modifier
      */
     private Double decayRate;
 
     /**
-     * order item create datetime
+     * order item create datetime to get order age
      */
     private LocalDateTime createDate;
 
     /**
-     *
+     * Orders have an inherent value that will deteriorate over time, based on the order’s shelfLife and decayRate fields
+     * that calculates by {@code calculateShelfLifeValue()}
      */
     private Double shelfLifeValue;
 
@@ -125,16 +126,22 @@ public class Order {
      * @param shelfDecayModifier
      * @return
      */
-    public boolean isValidValidForDelivery(int shelfDecayModifier) {
+    public boolean isValidToDelivery(int shelfDecayModifier) {
 
         long orderAge = DateTimeUtil.calculateAgeInSeconds(this.getCreateDate(), LocalDateTime.now());
 
-        this.setShelfLifeValue(calculateShelfLifeValue(orderAge, shelfDecayModifier));
+        this.setShelfLifeValue(calculatesShelfLifeValue(orderAge, shelfDecayModifier));
 
         return this.shelfLifeValue > 0;
     }
 
-    private Double calculateShelfLifeValue(long orderAge, int shelfDecayModifier) {
+    /**
+     * This method calculates the shelf life value.
+     * @param orderAge
+     * @param shelfDecayModifier
+     * @return
+     */
+    private Double calculatesShelfLifeValue(long orderAge, int shelfDecayModifier) {
 
         return (((this.getShelfLife() - this.getDecayRate() *  orderAge) * shelfDecayModifier) / this.getShelfLife());
     }

@@ -34,7 +34,7 @@ public class OrderTests {
                 .with(Order::setDecayRate, 0.63)
                 .build();
 
-        this.exampleOrderValidToDelivery.isValidValidForDelivery(this.appProperties.getRegularShelfDecayModifier());
+        this.exampleOrderValidToDelivery.isValidToDelivery(this.appProperties.getRegularShelfDecayModifier());
 
         this.exampleOrderNotValidToDelivery = GenericBuilderUtil.of(Order::new)
                 .with(Order::setId, UUID.fromString("4f304b59-6634-4558-a128-a8ce12b1f818"))
@@ -55,7 +55,7 @@ public class OrderTests {
                                 exampleOrderValidToDelivery.getTemp(), exampleOrderValidToDelivery.getShelfLife(),
                                 exampleOrderValidToDelivery.getDecayRate());
 
-        order.isValidValidForDelivery(1);
+        order.isValidToDelivery(1);
 
         assertNotNull(order.getCreateDate());
         assertEquals(order.getId(), exampleOrderValidToDelivery.getId(), new StringBuilder("Must be ").append(exampleOrderValidToDelivery.getId()).toString());
@@ -81,11 +81,11 @@ public class OrderTests {
      */
     @Test
     public void shouldReturnThatOrderIsValidToDelivery() {
-        assertTrue(exampleOrderValidToDelivery.isValidValidForDelivery(this.appProperties.getRegularShelfDecayModifier()));
+        assertTrue(exampleOrderValidToDelivery.isValidToDelivery(this.appProperties.getRegularShelfDecayModifier()));
     }
 
     @Test
     public void shouldReturnThatOrderIsNotValidToDelivery() {
-        assertFalse(exampleOrderNotValidToDelivery.isValidValidForDelivery(this.appProperties.getOverflowShelfDecayModifier()));
+        assertFalse(exampleOrderNotValidToDelivery.isValidToDelivery(this.appProperties.getOverflowShelfDecayModifier()));
     }
 }

@@ -15,6 +15,12 @@ public interface ShelfService {
 
     /**
      * Allocates orders in appropriate shelf.
+     *
+     * Each order should be placed on a shelf that matches the order’s temperature.
+     * If that shelf is full, an order can be placed on the overflow shelf.
+     * If the overflow shelf is full, an existing order of your choosing on the overflow should be moved to an allowable shelf with room.
+     * If no such move is possible, a random order from the overflow shelf should be discarded as waste (will not be available for a courier pickup)
+     * and the current order must be placed on the overflow shelf replacing the previously discarded order.
      * @param order
      * @throws InterruptedException
      */

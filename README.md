@@ -109,7 +109,13 @@ In this challenge I've use BlockingQueue offer() methods will block if Queue is 
 
 * Domain-Driven Design
 
+All the layers of the application were modeled on the best practices imposed by Eric Evans, with Domain layer being the heart of the solution. 
+
+I also tried to use ubiquitous language as much as possible.
+
 * Design Patterns
+
+Factory, Generic Builder, Repository ...
 
 * SOLID Principles
 

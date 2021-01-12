@@ -57,7 +57,7 @@ public class AppProperties {
     private Integer overflowShelfCapacity;
 
     /**
-     * regular shelf (hot, frozen, cold) decay modifier.
+     * regular shelf (hot, frozen or cold) decay modifier.
      */
     private Integer regularShelfDecayModifier;
 
