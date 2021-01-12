@@ -72,11 +72,11 @@ Important: shelfDecayModifier is 1 for single-temperature shelves and 2 for the 
 
 ### Problem
 
-Producer/Consumer Problem [1]
+* Producer/Consumer Problem [1]
 
 ### Solution
 
-Producer-Consumer Pattern [2]
+* Producer-Consumer Pattern [2]
 
 Producer consumer pattern is everywhere in real life and depicts coordination and collaboration. Like one person is preparing food (Producer) while the other one is serving food (Consumer), both will use a shared table for putting food plates and taking food plates. 
 
@@ -94,7 +94,7 @@ In fact by monitoring consumer speed one can introduce more consumer for better 
 
 4) Separating producer and Consumer functionality result in more clean, readable and manageable code.
 
-Producer-Consumer Problem in Multi-threading
+* Producer-Consumer Problem in Multi-threading
 
 Producer-Consumer Problem is also a popular java interview question where interviewer ask to implement producer consumer design pattern so that Producer should wait if Queue or bucket is full and Consumer should wait if queue orbucket is empty. This problem can be implemented or solved by different ways in Java, classical way is using wait and notify method to communicate between Producer and Consumer thread and blocking each of them on individual condition like full queue and empty queue. 
 
@@ -104,7 +104,7 @@ Now you don't require to use wait and notify to communicate between Producer and
 
 In this challenge I've use BlockingQueue offer() methods will block if Queue is full in case of Bounded Queue and pool() will block if Queue is empty.
 
-## How and why I chose to handle moving orders to and from the overflow shelf
+* How and why I chose to handle moving orders to and from the overflow shelf
 
 Each order should be placed on a shelf that matches the order’s temperature.
 If that shelf is full, an order can be placed on the overflow shelf.
