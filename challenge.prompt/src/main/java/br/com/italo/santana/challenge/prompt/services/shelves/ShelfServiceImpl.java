@@ -39,7 +39,6 @@ public class ShelfServiceImpl implements ShelfService {
     public void allocateOrderInAppropriateShelf(Order order) throws InterruptedException {
 
         if(!tryToAllocateInRegularShelf(order)) {
-
             if(!tryToAllocateInOverflowShelf(order)) {
 
                 Order movedOrder = overflowShelf.take();

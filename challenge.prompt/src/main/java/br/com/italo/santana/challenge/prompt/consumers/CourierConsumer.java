@@ -6,7 +6,6 @@ import br.com.italo.santana.challenge.prompt.util.PrintUtil;
 import br.com.italo.santana.challenge.prompt.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.util.Objects;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import br.com.italo.santana.challenge.prompt.producers.Producer;
@@ -22,11 +21,12 @@ public class CourierConsumer implements Runnable {
     private Integer regularShelfDecayModifier, overflowShelfDecayModifier;
     private Integer courierMinArriveTime, courierMaxArriveTime;
     private BlockingQueue<Order> coldShelf, hotShelf, frozenShelf, overflowShelf;
+    private Order orderToPickUp;
 
     public CourierConsumer(Integer courierMinArriveTime, Integer courierMaxArriveTime,
                            Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
                            BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
-                           BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf) {
+                           BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf, Order orderToPickUp) {
         this.regularShelfDecayModifier = regularShelfDecayModifier;
         this.overflowShelfDecayModifier = overflowShelfDecayModifier;
         this.courierMinArriveTime = courierMinArriveTime;
@@ -35,66 +35,82 @@ public class CourierConsumer implements Runnable {
         this.hotShelf = hotShelf;
         this.frozenShelf = frozenShelf;
         this.overflowShelf = overflowShelf;
+        this.orderToPickUp = orderToPickUp;
     }
 
     @Override
     public void run() {
         try {
-            pickUpOrderFromRegularShelf(frozenShelf.poll());
-            pickUpOrderFromRegularShelf(hotShelf.poll());
-            pickUpOrderFromRegularShelf(coldShelf.poll());
-            pickUpOrderFromOverflowShelf(overflowShelf.poll());
+            if(this.orderToPickUp.getTemp().equalsIgnoreCase("hot")) {
+                this.pickUpHotOrder(orderToPickUp);
+            } else if (this.orderToPickUp.getTemp().equalsIgnoreCase("cold")) {
+                this.pickUpColdOrder(orderToPickUp);
+            } else {
+                this.pickUpFrozenOrder(orderToPickUp);
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
 
-    /**
-     * This method waits a courier to pick up an order from regular shelf (hot, cold or frozen shelf)
-     * if the order is valid to delivery.
-     * @param order
-     * @throws InterruptedException
-     */
-    private void pickUpOrderFromRegularShelf(Order order) throws InterruptedException {
-        if (Objects.nonNull(order)) {
-
+    private void pickUpHotOrder(Order order) throws InterruptedException {
             if(order.isValidToDelivery(regularShelfDecayModifier)) {
 
-                PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
-                        hotShelf, coldShelf, frozenShelf, overflowShelf);
+                waitForACourier(order);
 
-                waitForACourier();
+                findAndRemoveItemFromShelf(order, this.hotShelf, this.overflowShelf);
 
                 PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
+
             } else {
+
+                findAndRemoveItemFromShelf(order, this.hotShelf, this.overflowShelf);
+
                 PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, order,
                         hotShelf, coldShelf, frozenShelf, overflowShelf);
             }
+    }
+
+    private void pickUpColdOrder(Order order) throws InterruptedException {
+        if(order.isValidToDelivery(regularShelfDecayModifier)) {
+
+            waitForACourier(order);
+
+            findAndRemoveItemFromShelf(order, this.coldShelf, this.overflowShelf);
+
+            PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+
+        } else {
+            findAndRemoveItemFromShelf(order, this.coldShelf, this.overflowShelf);
+
+            PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
         }
     }
 
-    /**
-     * This method waits a courier to pick up an order from overflow shelf if the order is valid to delivery.
-     * @param order
-     * @throws InterruptedException
-     */
-    private void pickUpOrderFromOverflowShelf(Order order) throws InterruptedException {
-        if (Objects.nonNull(order)) {
+    private void pickUpFrozenOrder(Order order) throws InterruptedException {
+        if(order.isValidToDelivery(regularShelfDecayModifier)) {
 
-            if(order.isValidToDelivery(overflowShelfDecayModifier)) {
+            waitForACourier(order);
 
-                PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
-                        hotShelf, coldShelf, frozenShelf, overflowShelf);
+            findAndRemoveItemFromShelf(order, this.frozenShelf, this.overflowShelf);
 
-                waitForACourier();
+            PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
 
-                PrintUtil.PrintShelvesContent(LOG, EventType.COURIER_HAS_PICKED_UP_THE_ORDER.label, order,
-                        hotShelf, coldShelf, frozenShelf, overflowShelf);
-            } else {
-                PrintUtil.PrintShelvesContent(LOG, EventType.ORDER_WAS_DISCARDED.label, order,
-                        hotShelf, coldShelf, frozenShelf, overflowShelf);
-            }
+        } else {
+            findAndRemoveItemFromShelf(order, this.frozenShelf, this.overflowShelf);
+
+            PrintUtil.PrintShelvesContent(LOG,  EventType.ORDER_WAS_DISCARDED.label, order,
+                    hotShelf, coldShelf, frozenShelf, overflowShelf);
+        }
+    }
+
+    private void findAndRemoveItemFromShelf(Order order, BlockingQueue<Order> regularShelf, BlockingQueue<Order> overflowShelf) {
+        if(!regularShelf.remove(order)) {
+            overflowShelf.remove(order);
         }
     }
 
@@ -102,7 +118,9 @@ public class CourierConsumer implements Runnable {
      * Waits for a courier.
      * @throws InterruptedException
      */
-    private void waitForACourier() throws InterruptedException {
+    private void waitForACourier(Order order) throws InterruptedException {
+        PrintUtil.PrintShelvesContent(LOG, EventType.A_COURIER_WAS_NOTIFIED.label, order,
+                hotShelf, coldShelf, frozenShelf, overflowShelf);
         TimeUnit.SECONDS.sleep(RandomUtil.getRandomNumberUsingNextInt(this.courierMinArriveTime,this.courierMaxArriveTime));
     }
 }

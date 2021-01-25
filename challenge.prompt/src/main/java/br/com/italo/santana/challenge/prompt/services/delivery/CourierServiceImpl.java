@@ -7,6 +7,7 @@ import br.com.italo.santana.challenge.prompt.interfaces.delivery.CourierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Service responsible for manage the couriers to pick up the orders when it's available.
@@ -16,6 +17,7 @@ import java.util.concurrent.BlockingQueue;
 @Service
 public class CourierServiceImpl implements CourierService {
     private AppProperties appProperties;
+    private AtomicInteger courierCounter = new AtomicInteger(0);
 
     @Autowired
     public CourierServiceImpl(AppProperties appProperties) {
@@ -30,12 +32,13 @@ public class CourierServiceImpl implements CourierService {
      * @param overflowShelve
      */
     public void sendCourier(BlockingQueue<Order> coldShelve, BlockingQueue<Order> hotShelve,
-                            BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve) {
+                            BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve, Order order) {
 
         new Thread(new CourierConsumer(this.appProperties.getCourierMinArriveTime(),
                                         this.appProperties.getCourierMaxArriveTime(),
                                         this.appProperties.getRegularShelfDecayModifier(),
                                         this.appProperties.getOverflowShelfDecayModifier(),
-                                        coldShelve, hotShelve, frozenShelve, overflowShelve)).start();
+                                        coldShelve, hotShelve, frozenShelve, overflowShelve, order),
+                                        "Courier-" + courierCounter.incrementAndGet()).start();
     }
 }

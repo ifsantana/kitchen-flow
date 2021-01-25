@@ -1,8 +1,5 @@
 package br.com.italo.santana.challenge.prompt.util;
 
-import java.util.Random;
-
-
 /**
  *  Utility class for generating random Integers.
  *
@@ -11,8 +8,7 @@ import java.util.Random;
 public final class RandomUtil {
 
     public static int getRandomNumberUsingNextInt(int min, int max) {
-        Random random = new Random();
-        int sleepTime = random.nextInt(max - min) + min;
+        int sleepTime = (int)(Math.random() * (max - min + 1) + min);
         return sleepTime;
     }
 }

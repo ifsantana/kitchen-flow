@@ -21,5 +21,5 @@ public interface CourierService {
      * @param overflowShelve
      */
     void sendCourier(BlockingQueue<Order> coldShelve, BlockingQueue<Order> hotShelve,
-                     BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve);
+                     BlockingQueue<Order> frozenShelve, BlockingQueue<Order> overflowShelve, Order order);
 }
