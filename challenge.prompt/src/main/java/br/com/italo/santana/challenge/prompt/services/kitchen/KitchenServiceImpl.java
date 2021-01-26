@@ -22,7 +22,9 @@ public class KitchenServiceImpl implements KitchenService {
     private ShelfService shelvesService;
 
     @Autowired
-    public KitchenServiceImpl(ShelfService shelvesService) { }
+    public KitchenServiceImpl(ShelfService shelvesService) {
+        this.shelvesService = shelvesService;
+    }
 
     public void cook(Order order) throws InterruptedException {
 
