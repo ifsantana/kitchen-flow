@@ -38,7 +38,7 @@ public class CourierServiceImpl implements CourierService {
                                         this.appProperties.getCourierMaxArriveTime(),
                                         this.appProperties.getRegularShelfDecayModifier(),
                                         this.appProperties.getOverflowShelfDecayModifier(),
-                                        coldShelve, hotShelve, frozenShelve, overflowShelve, order),
+                                        hotShelve, coldShelve, frozenShelve, overflowShelve, order),
                                         "Courier-" + courierCounter.incrementAndGet()).start();
     }
 }
