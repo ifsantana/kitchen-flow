@@ -26,7 +26,8 @@ public class CourierConsumer implements Runnable {
     public CourierConsumer(Integer courierMinArriveTime, Integer courierMaxArriveTime,
                            Integer regularShelfDecayModifier, Integer overflowShelfDecayModifier,
                            BlockingQueue<Order> hotShelf, BlockingQueue<Order> coldShelf,
-                           BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf, Order orderToPickUp) {
+                           BlockingQueue<Order> frozenShelf, BlockingQueue<Order> overflowShelf,
+                           Order orderToPickUp) {
         this.regularShelfDecayModifier = regularShelfDecayModifier;
         this.overflowShelfDecayModifier = overflowShelfDecayModifier;
         this.courierMinArriveTime = courierMinArriveTime;
@@ -63,7 +64,8 @@ public class CourierConsumer implements Runnable {
      * @param regularShelf
      * @param overflowShelf
      */
-    private void verifyIfOrderWillBeDeliveryOrDiscard(Order order, BlockingQueue<Order> regularShelf, BlockingQueue<Order> overflowShelf) {
+    private void verifyIfOrderWillBeDeliveryOrDiscard(Order order, BlockingQueue<Order> regularShelf,
+                                                      BlockingQueue<Order> overflowShelf) {
 
         if(regularShelf.contains(order)){
             if(order.isValidToDelivery(this.regularShelfDecayModifier)) {

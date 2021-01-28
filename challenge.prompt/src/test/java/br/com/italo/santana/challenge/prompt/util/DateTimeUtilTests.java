@@ -13,10 +13,10 @@ public class DateTimeUtilTests {
 
         LocalTime baseTime = LocalTime.now();
 
-        LocalDateTime start =  LocalDateTime.of(LocalDate.now(), baseTime);
+        LocalDateTime start =  LocalDateTime.of(LocalDate.of(2021, 01, 27), LocalTime.of(8, 0, 0));
 
-        LocalDateTime end =  LocalDateTime.of(LocalDate.now(), baseTime.plusSeconds(60));
+        LocalDateTime end =  LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0, 0));
 
-        assertEquals(60, DateTimeUtil.calculateAgeInSeconds(start, end), "the result must be 60s");
+        assertEquals(86400, DateTimeUtil.calculateAgeInSeconds(start, end), "the result must be 60s");
     }
 }

@@ -12,10 +12,7 @@ public class DateTimeUtil {
 
     public static long calculateAgeInSeconds(LocalDateTime startDatetime, LocalDateTime now) {
 
-        LocalDateTime today = LocalDateTime.of(now.getYear(),
-                now.getMonthValue(), now.getDayOfMonth(), startDatetime.getHour(), startDatetime.getMinute(), startDatetime.getSecond());
-
-        Duration duration = Duration.between(today, now);
+        Duration duration = Duration.between(startDatetime, now);
 
         return duration.getSeconds();
     }
