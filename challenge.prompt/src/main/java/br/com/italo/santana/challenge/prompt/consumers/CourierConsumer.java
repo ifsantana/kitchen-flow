@@ -69,13 +69,13 @@ public class CourierConsumer implements Runnable {
 
         if(regularShelf.contains(order)){
             if(order.isValidToDelivery(this.regularShelfDecayModifier)) {
-                pickUpOrder(order, regularShelf);
+                pickUpOrderToDelivery(order, regularShelf);
             } else {
                 discardOrder(order, regularShelf);
             }
         } else {
             if (order.isValidToDelivery(this.overflowShelfDecayModifier)) {
-                pickUpOrder(order, overflowShelf);
+                pickUpOrderToDelivery(order, overflowShelf);
             } else {
                 discardOrder(order, overflowShelf);
             }
@@ -87,7 +87,7 @@ public class CourierConsumer implements Runnable {
      * @param order
      * @param shelf
      */
-    private void pickUpOrder(Order order, BlockingQueue<Order> shelf) {
+    private void pickUpOrderToDelivery(Order order, BlockingQueue<Order> shelf) {
 
         shelf.remove(order);
 
