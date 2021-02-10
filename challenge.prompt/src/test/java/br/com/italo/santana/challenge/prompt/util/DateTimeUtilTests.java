@@ -13,7 +13,7 @@ public class DateTimeUtilTests {
 
         LocalDateTime start =  LocalDateTime.of(LocalDate.of(2021, 01, 27), LocalTime.of(8, 0, 0));
 
-        LocalDateTime end =  LocalDateTime.of(LocalDate.now(), LocalTime.of(8, 0, 0));
+        LocalDateTime end =  LocalDateTime.of(LocalDate.of(2021, 01, 28), LocalTime.of(8, 0, 0));
 
         assertEquals(86400, DateTimeUtil.calculateAgeInSeconds(start, end), "the result must be 86400s");
     }
